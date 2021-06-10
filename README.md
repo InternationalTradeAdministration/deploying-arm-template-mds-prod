@@ -1,0 +1,1 @@
+# mds-prod-arm-template
