@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "networkSecurityGroups_nsg_ita_mds_prod_est1_name": {
-            "defaultValue": "nsg-ita-mds-prod-est1",
+            "defaultValue": "nsg-ita-mds-prod-east1",
             "type": "String"
         }
     },
