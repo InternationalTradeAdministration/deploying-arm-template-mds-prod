@@ -1,0 +1,209 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vaults_ita_mds_adf_kv_prod_name": {
+            "defaultValue": "ita-mds-adf-kv-prod",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.KeyVault/vaults",
+            "apiVersion": "2021-04-01-preview",
+            "name": "[parameters('vaults_ita_mds_adf_kv_prod_name')]",
+            "location": "eastus",
+            "tags": {
+                "Environment": "Production",
+                "System": "MDS - Data services",
+                "Owner": "EO - Enterprise Operations"
+            },
+            "properties": {
+                "sku": {
+                    "family": "A",
+                    "name": "Standard"
+                },
+                "tenantId": "a1d183f2-6c7b-4d9a-b994-5f2f31b3f780",
+                "accessPolicies": [
+                    {
+                        "tenantId": "a1d183f2-6c7b-4d9a-b994-5f2f31b3f780",
+                        "objectId": "1066935c-b012-409c-ad3b-154d769443b7",
+                        "permissions": {
+                            "keys": [],
+                            "secrets": [
+                                "Get",
+                                "List"
+                            ],
+                            "certificates": []
+                        }
+                    },
+                    {
+                        "tenantId": "a1d183f2-6c7b-4d9a-b994-5f2f31b3f780",
+                        "objectId": "5923ddfb-9770-4cad-a894-66cc09da7402",
+                        "permissions": {
+                            "keys": [
+                                "Get",
+                                "List",
+                                "Update",
+                                "Create",
+                                "Import",
+                                "Delete",
+                                "Recover",
+                                "Backup",
+                                "Restore"
+                            ],
+                            "secrets": [
+                                "Get",
+                                "List",
+                                "Set",
+                                "Delete",
+                                "Recover",
+                                "Backup",
+                                "Restore"
+                            ],
+                            "certificates": [
+                                "Get",
+                                "List",
+                                "Update",
+                                "Create",
+                                "Import",
+                                "Delete",
+                                "Recover",
+                                "Backup",
+                                "Restore",
+                                "ManageContacts",
+                                "ManageIssuers",
+                                "GetIssuers",
+                                "ListIssuers",
+                                "SetIssuers",
+                                "DeleteIssuers"
+                            ]
+                        }
+                    }
+                ],
+                "enabledForDeployment": false,
+                "enabledForDiskEncryption": false,
+                "enabledForTemplateDeployment": false,
+                "enableSoftDelete": true,
+                "softDeleteRetentionInDays": 90,
+                "enableRbacAuthorization": false,
+                "enablePurgeProtection": true,
+                "vaultUri": "[concat('https://', parameters('vaults_ita_mds_adf_kv_prod_name'), '.vault.azure.net/')]",
+                "provisioningState": "Succeeded"
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "apiVersion": "2021-04-01-preview",
+            "name": "[concat(parameters('vaults_ita_mds_adf_kv_prod_name'), '/EMAIL-NOTIFICATION-URL')]",
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_ita_mds_adf_kv_prod_name'))]"
+            ],
+            "properties": {
+                "attributes": {
+                    "enabled": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "apiVersion": "2021-04-01-preview",
+            "name": "[concat(parameters('vaults_ita_mds_adf_kv_prod_name'), '/GENERIC-EMAIL-NOTIFICATION-URL')]",
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_ita_mds_adf_kv_prod_name'))]"
+            ],
+            "properties": {
+                "attributes": {
+                    "enabled": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "apiVersion": "2021-04-01-preview",
+            "name": "[concat(parameters('vaults_ita_mds_adf_kv_prod_name'), '/IHS-MARKIT-API-MANAGER-SUBSCRIPTION-KEY')]",
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_ita_mds_adf_kv_prod_name'))]"
+            ],
+            "properties": {
+                "attributes": {
+                    "enabled": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "apiVersion": "2021-04-01-preview",
+            "name": "[concat(parameters('vaults_ita_mds_adf_kv_prod_name'), '/SALESFORCE-PASSWORD')]",
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_ita_mds_adf_kv_prod_name'))]"
+            ],
+            "properties": {
+                "attributes": {
+                    "enabled": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "apiVersion": "2021-04-01-preview",
+            "name": "[concat(parameters('vaults_ita_mds_adf_kv_prod_name'), '/SALESFORCE-SECURITY-TOKEN')]",
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_ita_mds_adf_kv_prod_name'))]"
+            ],
+            "properties": {
+                "attributes": {
+                    "enabled": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "apiVersion": "2021-04-01-preview",
+            "name": "[concat(parameters('vaults_ita_mds_adf_kv_prod_name'), '/SALESFORCE-USER-NAME')]",
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_ita_mds_adf_kv_prod_name'))]"
+            ],
+            "properties": {
+                "attributes": {
+                    "enabled": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "apiVersion": "2021-04-01-preview",
+            "name": "[concat(parameters('vaults_ita_mds_adf_kv_prod_name'), '/SQL-CONNECTION-STRING')]",
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_ita_mds_adf_kv_prod_name'))]"
+            ],
+            "properties": {
+                "attributes": {
+                    "enabled": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "apiVersion": "2021-04-01-preview",
+            "name": "[concat(parameters('vaults_ita_mds_adf_kv_prod_name'), '/STORAGE-CONNECTION-STRING')]",
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_ita_mds_adf_kv_prod_name'))]"
+            ],
+            "properties": {
+                "attributes": {
+                    "enabled": true
+                }
+            }
+        }
+    ]
+}

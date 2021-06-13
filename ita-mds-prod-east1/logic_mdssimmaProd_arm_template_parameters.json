@@ -1,0 +1,12 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workflows_logic_mdssimma_Prod_name": {
+            "value": "logic-mdssimma-Prod-test"
+        },
+        "connections_office365_externalid": {
+            "value": "/subscriptions/675d7977-79af-4b94-b0bd-26d4095a4ffb/resourceGroups/ITA-MSDataServices-Dev-East1/providers/Microsoft.Web/connections/office365"
+        }
+    }
+}

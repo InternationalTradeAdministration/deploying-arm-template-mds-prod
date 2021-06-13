@@ -1,0 +1,40 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "value": "ita-mds-adf-prod"
+        },
+        "ApiManagerRestLinkedService_properties_typeProperties_url": {
+            "value": "https://mds-dev2.azure-api.net/"
+        },
+        "AzureBlobStorage_properties_typeProperties_connectionString_secretName": {
+            "value": "STORAGE-CONNECTION-STRING"
+        },
+        "AzureSqlDatabase_properties_typeProperties_connectionString_secretName": {
+            "value": "SQL-CONNECTION-STRING"
+        },
+        "FTATariffToolDocumentRestLinkedService_properties_typeProperties_url": {
+            "value": "https://itaprodingress.eastus.cloudapp.azure.com/itapublishingservice/api/v1/Service/Search"
+        },
+        "MdsKeyVault_properties_typeProperties_baseUrl": {
+            "value": "https://ita-mds-adf-kv-prod.vault.azure.net/"
+        },
+        "SalesforceLinkedService_properties_typeProperties_environmentUrl": {
+            "value": "https://trade.my.salesforce.com"
+        },
+        "SalesforceLinkedService_properties_typeProperties_username": {
+            "value": {
+                "type": "AzureKeyVaultSecret",
+                "secretName": "SALESFORCE-USER-NAME",
+                "store": {
+                    "referenceName": "MdsKeyVault",
+                    "type": "LinkedServiceReference"
+                }
+            }
+        },
+        "imau-scheduler-daily-trigger_properties_imau-scheduler-daily_parameters_RunType": {
+            "value": "SCHEDULED"
+        }
+    }
+}

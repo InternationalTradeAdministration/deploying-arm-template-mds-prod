@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "value": "adf-mdstpis-Test"
+        },
+        "AzureSqlDatabaseLinkedService_connectionString": {
+            "value": ""
+        },
+        "AzureBlobStorageLinkedService_connectionString": {
+            "value": ""
+        },
+        "unloaddb_connectionString": {
+            "value": ""
+        },
+        "AzureBlobStorage1_connectionString": {
+            "value": ""
+        },
+        "undata_blobpath_connectionString": {
+            "value": ""
+        },
+        "AzureSqlDB_UN_COMTRADE_connectionString": {
+            "value": ""
+        },
+        "AzureSql_UNCOMTRADE_PROD_connectionString": {
+            "value": ""
+        },
+        "tpis1_ztest_site_properties_typeProperties_url": {
+            "value": "https://tpis1.trade.gov/tpis_ztest"
+        },
+        "ComtradeUNLinkedService_properties_typeProperties_url": {
+            "value": "https://comtrade.un.org/"
+        },
+        "HttpLinkedService_properties_typeProperties_url": {
+            "value": "https://comtrade.un.org/"
+        }
+    }
+}

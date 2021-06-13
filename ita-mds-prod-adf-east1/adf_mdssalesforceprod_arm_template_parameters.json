@@ -1,0 +1,132 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "value": "adf-mdssalesforce-Prod"
+        },
+        "AzureBlobStorage1_connectionString": {
+            "value": ""
+        },
+        "AzureBlobStorage2_connectionString": {
+            "value": ""
+        },
+        "AzureBlobStorageCensus_connectionString": {
+            "value": ""
+        },
+        "HttpCensusdata_password": {
+            "value": ""
+        },
+        "HttpServer1_password": {
+            "value": ""
+        },
+        "HttpServer2_password": {
+            "value": ""
+        },
+        "HttpServer3_password": {
+            "value": ""
+        },
+        "HttpServer4_password": {
+            "value": ""
+        },
+        "HttpServer5_password": {
+            "value": ""
+        },
+        "LS_Datatloader_Blob_connectionString": {
+            "value": ""
+        },
+        "LS_RestAPISRC_password": {
+            "value": ""
+        },
+        "LS_RestSink_connectionString": {
+            "value": ""
+        },
+        "LS_Txt_Json_Blob_Tgt_connectionString": {
+            "value": ""
+        },
+        "Ls_Dataloader_Target_connectionString": {
+            "value": ""
+        },
+        "Source_dataloader_connectionString": {
+            "value": ""
+        },
+        "SqlServer1_connectionString": {
+            "value": ""
+        },
+        "Target_DataLoader_connectionString": {
+            "value": ""
+        },
+        "csv_secretAccessKey": {
+            "value": ""
+        },
+        "getmeta_connectionString": {
+            "value": ""
+        },
+        "loader1_connectionString": {
+            "value": ""
+        },
+        "source_blob_connectionString": {
+            "value": ""
+        },
+        "AzureKeyVault_properties_typeProperties_baseUrl": {
+            "value": "https://kv-salesforceobject-dev.vault.azure.net/"
+        },
+        "HttpCensusdata_properties_typeProperties_url": {
+            "value": "https://www.census.gov/trade/downloads/dvdmenu/"
+        },
+        "HttpCensusdata_properties_typeProperties_userName": {
+            "value": "anne.flatness@trade.gov"
+        },
+        "HttpServer1_properties_typeProperties_url": {
+            "value": "https://www.census.gov/trade/downloads/2020/Merch/ex_m/"
+        },
+        "HttpServer1_properties_typeProperties_userName": {
+            "value": "anne.flatness@trade.gov"
+        },
+        "HttpServer2_properties_typeProperties_url": {
+            "value": "https://www.census.gov/trade/downloads/2020/state_imp/naics_m/ISNAICS2001.ZIP"
+        },
+        "HttpServer2_properties_typeProperties_userName": {
+            "value": "anne.flatness@trade.gov"
+        },
+        "HttpServer3_properties_typeProperties_url": {
+            "value": "https://www.census.gov/trade/downloads/2020/state_imp/naics_m"
+        },
+        "HttpServer3_properties_typeProperties_userName": {
+            "value": "anne.flatness@trade.gov"
+        },
+        "HttpServer4_properties_typeProperties_url": {
+            "value": "https://www.census.gov/trade/downloads/2020/state_imp/naics_m/ISNAICS2012.ZIP"
+        },
+        "HttpServer4_properties_typeProperties_userName": {
+            "value": "anne.flatness@trade.gov"
+        },
+        "HttpServer5_properties_typeProperties_url": {
+            "value": "http://www.census.gov/trade/downloads/2020/state_imp/naics_m/"
+        },
+        "HttpServer5_properties_typeProperties_userName": {
+            "value": "anne.flatness@trade.gov"
+        },
+        "LS_RestAPISRC_properties_typeProperties_url": {
+            "value": "https://www.census.gov/trade/downloads/dvdmenu/"
+        },
+        "LS_RestAPISRC_properties_typeProperties_userName": {
+            "value": "anne.flatness@trade.gov"
+        },
+        "RestService1_properties_typeProperties_url": {
+            "value": "https://www.census.gov/trade/downloads/2020/state_imp/naics_m/ISNAICS2012.ZIP"
+        },
+        "Salesforceconnection_properties_typeProperties_environmentUrl": {
+            "value": "trade.my.salesforce.com"
+        },
+        "Salesforceconnection_properties_typeProperties_username": {
+            "value": "sfintegration@trade.gov"
+        },
+        "csv_properties_typeProperties_accessKeyId": {
+            "value": "mssqladmin"
+        },
+        "salesforcesqldb_properties_typeProperties_connectionString_secretName": {
+            "value": "salesforcedatafactorysqlsink"
+        }
+    }
+}

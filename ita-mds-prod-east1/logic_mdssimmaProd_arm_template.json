@@ -1,0 +1,106 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workflows_logic_mdssimma_Prod_name": {
+            "defaultValue": "logic-mdssimma-Prod",
+            "type": "String"
+        },
+        "connections_office365_externalid": {
+            "defaultValue": "/subscriptions/f77f3fb8-7095-4b35-aec0-49340169db57/resourceGroups/ITA-MDS-Prod-East1/providers/Microsoft.Web/connections/office365",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('workflows_logic_mdssimma_Prod_name')]",
+            "location": "eastus",
+            "tags": {
+                "Environment": "Production",
+                "System": "MDS - Data services",
+                "System Owner": "ITA-SIMA",
+                "Owner": "EO - Enterprise Operations",
+                "Project Name": "SIMA"
+            },
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "manual": {
+                            "type": "Request",
+                            "kind": "Http",
+                            "inputs": {
+                                "schema": {
+                                    "properties": {
+                                        "datafactoryname": {
+                                            "type": "string"
+                                        },
+                                        "executiontime": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "pipelinename": {
+                                            "type": "string"
+                                        },
+                                        "pipelinerunid": {
+                                            "type": "string"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "actions": {
+                        "Send_an_email_(V2)": {
+                            "runAfter": {},
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "body": {
+                                    "Body": "<p>Hi All,<br>\n<br>\n@{triggerBody()?['message']}<br>\n<br>\nDetails are:<br>\n<br>\nData Factory Name : &nbsp;@{triggerBody()?['datafactoryname']}<br>\n<br>\nPipeline Name : @{triggerBody()?['pipelinename']}<br>\n<br>\nPipeline Run Id : @{triggerBody()?['pipelinerunid']}<br>\n<br>\nExecution Time : @{triggerBody()?['executiontime']}<br>\n<br>\n<br>\nThanks &amp; Regards<br>\nMDS Team</p>",
+                                    "Subject": "@triggerBody()?['title']",
+                                    "To": "MDS@trade.gov"
+                                },
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['office365']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "path": "/v2/Mail"
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "office365": {
+                                "connectionId": "[parameters('connections_office365_externalid')]",
+                                "connectionName": "office365",
+                                "id": "/subscriptions/f77f3fb8-7095-4b35-aec0-49340169db57/providers/Microsoft.Web/locations/eastus/managedApis/office365"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

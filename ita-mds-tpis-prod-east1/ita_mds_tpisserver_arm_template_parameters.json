@@ -1,0 +1,67 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "administratorLogin": {
+            "value": "sqladmin"
+        },
+        "administratorLoginPassword": {
+            "value": "Administrator2021$"
+        },
+        "serverName": {
+            "value": "ita-mds-tpisserver-test-east1"
+        },
+        "serverLocation": {
+            "value": "eastus"
+        },
+        "elasticPoolName": {
+            "value": "TPIS_POOL"
+        },
+        "skuName": {
+            "value": "GP_Gen5"
+        },
+        "tier": {
+            "value": "GeneralPurpose"
+        },
+        "poolLimit": {
+            "value": "2"
+        },
+        "poolSize": {
+            "value": 34359738368
+        },
+        "perDatabasePerformanceMin": {
+            "value": "0"
+        },
+        "perDatabasePerformanceMax": {
+            "value": "2"
+        },
+        "zoneRedundant": {
+            "value": false
+        },
+        "licenseType": {
+            "value": "LicenseIncluded"
+        },
+        "allowAzureIps": {
+            "value": true
+        },
+        "serverTags": {
+            "value": {
+                "Environment": "Prod",
+                "Owner": "EO - Enterprise Operations",
+                "Subsystem": "TPIS",
+                "System": "MDS - Data services"
+            }
+        },
+        "elasticPoolTags": {
+            "value": {
+                "Environment": "Prod",
+                "Owner": "EO - Enterprise Operations",
+                "Subsystem": "TPIS",
+                "System": "MDS - Data services"
+            }
+        },
+        "maintenanceConfigurationId": {
+            "value": "/subscriptions/a841ba7e-6d43-49bb-8fff-fcc287a14bea/providers/Microsoft.Maintenance/publicMaintenanceConfigurations/SQL_Default"
+        }
+    }
+}

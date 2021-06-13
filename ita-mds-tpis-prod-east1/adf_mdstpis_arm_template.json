@@ -1,0 +1,3310 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "metadata": "Data Factory name",
+            "defaultValue": "demotpisdatafactory"
+        },
+        "AzureSqlDatabaseLinkedService_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseLinkedService'"
+        },
+        "AzureBlobStorageLinkedService_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'AzureBlobStorageLinkedService'"
+        },
+        "unloaddb_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'unloaddb'"
+        },
+        "AzureBlobStorage1_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+        },
+        "undata_blobpath_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'undata_blobpath'"
+        },
+        "AzureSqlDB_UN_COMTRADE_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'AzureSqlDB_UN_COMTRADE'"
+        },
+        "AzureSql_UNCOMTRADE_PROD_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'AzureSql_UNCOMTRADE_PROD'"
+        },
+        "tpis1_ztest_site_properties_typeProperties_url": {
+            "type": "string",
+            "defaultValue": "https://tpis1.trade.gov/tpis_ztest"
+        },
+        "ComtradeUNLinkedService_properties_typeProperties_url": {
+            "type": "string",
+            "defaultValue": "https://comtrade.un.org/"
+        },
+        "HttpLinkedService_properties_typeProperties_url": {
+            "type": "string",
+            "defaultValue": "https://comtrade.un.org/"
+        }
+    },
+    "variables": {
+        "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/AzureSqlDatabaseLinkedService')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": "[parameters('AzureSqlDatabaseLinkedService_connectionString')]"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/tpis1_ztest_site')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "HttpServer",
+                "typeProperties": {
+                    "url": "[parameters('tpis1_ztest_site_properties_typeProperties_url')]",
+                    "enableServerCertificateValidation": true,
+                    "authenticationType": "Anonymous"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/AzureBlobStorageLinkedService')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureBlobStorage",
+                "typeProperties": {
+                    "connectionString": "[parameters('AzureBlobStorageLinkedService_connectionString')]"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/unloaddb')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": "[parameters('unloaddb_connectionString')]"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureBlobStorage",
+                "typeProperties": {
+                    "connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/ComtradeUNLinkedService')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "HttpServer",
+                "typeProperties": {
+                    "url": "[parameters('ComtradeUNLinkedService_properties_typeProperties_url')]",
+                    "enableServerCertificateValidation": true,
+                    "authenticationType": "Anonymous"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/undata_blobpath')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureBlobStorage",
+                "typeProperties": {
+                    "connectionString": "[parameters('undata_blobpath_connectionString')]"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/HttpLinkedService')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "HttpServer",
+                "typeProperties": {
+                    "url": "[parameters('HttpLinkedService_properties_typeProperties_url')]",
+                    "enableServerCertificateValidation": true,
+                    "authenticationType": "Anonymous"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/AzureSqlDB_UN_COMTRADE')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": "[parameters('AzureSqlDB_UN_COMTRADE_connectionString')]"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/AzureSql_UNCOMTRADE_PROD')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": "[parameters('AzureSql_UNCOMTRADE_PROD_connectionString')]"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/UNDataCsvDataset')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "AzureBlobStorageLinkedService",
+                    "type": "LinkedServiceReference"
+                },
+                "annotations": [],
+                "type": "DelimitedText",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobStorageLocation",
+                        "fileName": "data.csv",
+                        "folderPath": "source",
+                        "container": "tpisundata"
+                    },
+                    "columnDelimiter": ",",
+                    "escapeChar": "\\",
+                    "firstRowAsHeader": true,
+                    "quoteChar": "\""
+                },
+                "schema": []
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageLinkedService')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/FLAT_FILE_NAME')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "AzureBlobStorageLinkedService",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "FileName": {
+                        "type": "string"
+                    }
+                },
+                "annotations": [],
+                "type": "DelimitedText",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobStorageLocation",
+                        "fileName": {
+                            "value": "@dataset().FileName",
+                            "type": "Expression"
+                        },
+                        "folderPath": "nov_2020",
+                        "container": "tpisusdata"
+                    },
+                    "columnDelimiter": ",",
+                    "escapeChar": "\\",
+                    "quoteChar": "\""
+                },
+                "schema": []
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageLinkedService')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/UNAnnualDataFolderCsv')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "AzureBlobStorageLinkedService",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "cmd_type": {
+                        "type": "string",
+                        "defaultValue": "@pipeline().parameters.CmdType"
+                    }
+                },
+                "annotations": [],
+                "type": "Binary",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobStorageLocation",
+                        "folderPath": {
+                            "value": "annual_un@{dataset().cmd_type}data",
+                            "type": "Expression"
+                        },
+                        "container": "tpisundata"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageLinkedService')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/UNDataZipBlobRctyYearCmdType')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "AzureBlobStorageLinkedService",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "Rcty": {
+                        "type": "string"
+                    },
+                    "Year": {
+                        "type": "string"
+                    },
+                    "CmdType": {
+                        "type": "string"
+                    }
+                },
+                "annotations": [],
+                "type": "Binary",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobStorageLocation",
+                        "fileName": {
+                            "value": "UN@{dataset().CmdType}_RCTY@{dataset().Rcty}_@{dataset().Year}.zip",
+                            "type": "Expression"
+                        },
+                        "folderPath": {
+                            "value": "annual_un@{dataset().CmdType}data",
+                            "type": "Expression"
+                        },
+                        "container": "tpisundata"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageLinkedService')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/UnDataCompressedParameterizedDataset')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "AzureBlobStorageLinkedService",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "Rcty": {
+                        "type": "string"
+                    },
+                    "Year": {
+                        "type": "string"
+                    },
+                    "CmdType": {
+                        "type": "string"
+                    }
+                },
+                "annotations": [],
+                "type": "DelimitedText",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobStorageLocation",
+                        "fileName": {
+                            "value": "UN@{dataset().CmdType}_RCTY@{dataset().Rcty}_@{dataset().Year}.zip",
+                            "type": "Expression"
+                        },
+                        "folderPath": {
+                            "value": "annual_un@{dataset().CmdType}data",
+                            "type": "Expression"
+                        },
+                        "container": "tpisundata"
+                    },
+                    "columnDelimiter": ",",
+                    "compressionCodec": "ZipDeflate",
+                    "compressionLevel": "Fastest",
+                    "escapeChar": "\\",
+                    "firstRowAsHeader": true,
+                    "quoteChar": "\""
+                },
+                "schema": []
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageLinkedService')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/tpisloadsdb')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "AzureSql_UNCOMTRADE_PROD",
+                    "type": "LinkedServiceReference"
+                },
+                "annotations": [],
+                "type": "AzureSqlTable",
+                "schema": [
+                    {
+                        "name": "CLASS",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "YEAR",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "PERIOD",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "PERIOD_DESC",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "AGG_LEVEL",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "IS_LEAF_CODE",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "TRADE_FLOW_CODE",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "TRADE_FLOW",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "REPORTER_CODE",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "REPORTER_NAME",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "REPORTER_ISO",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "PARTNER_CODE",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "PARTNER_NAME",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "PARTNER_ISO",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "COMMODITY_CODE",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "COMMODITY_DESC",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "QTY_UNIT_CODE",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "QTY_UNIT_DESC",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "QTY_VALUE",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "NETWEIGHT_KG_VALUE",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "TRADE_VALUE",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "FLAG",
+                        "type": "varchar"
+                    }
+                ],
+                "typeProperties": {
+                    "schema": "dbo",
+                    "table": "LOAD_UN_HS_2020_BULK_RCTYS2"
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureSql_UNCOMTRADE_PROD')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/unrcty_bulkcsv_txtblob')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "undata_blobpath",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "Rcty": {
+                        "type": "string",
+                        "defaultValue": "@item().rcty"
+                    },
+                    "Year": {
+                        "type": "string",
+                        "defaultValue": "@item().year"
+                    },
+                    "CmdType": {
+                        "type": "string",
+                        "defaultValue": "@item().cmd_type"
+                    }
+                },
+                "annotations": [],
+                "type": "DelimitedText",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobStorageLocation",
+                        "fileName": {
+                            "value": "UN@{dataset().CmdType}_RCTY@{dataset().Rcty}_@{dataset().Year}.csv",
+                            "type": "Expression"
+                        },
+                        "folderPath": {
+                            "value": "annual_csv_un@{dataset().CmdType}",
+                            "type": "Expression"
+                        },
+                        "container": "tpisundata"
+                    },
+                    "columnDelimiter": ",",
+                    "escapeChar": "\\",
+                    "firstRowAsHeader": true,
+                    "quoteChar": "\""
+                },
+                "schema": [
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    }
+                ]
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/undata_blobpath')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/unrcty_bulkcsv_blob')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "AzureBlobStorage1",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "Rcty": {
+                        "type": "string",
+                        "defaultValue": "@item().rcty"
+                    },
+                    "Year": {
+                        "type": "string",
+                        "defaultValue": "@item().year"
+                    },
+                    "CmdType": {
+                        "type": "string",
+                        "defaultValue": "@item().cmd_type"
+                    }
+                },
+                "annotations": [],
+                "type": "DelimitedText",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobStorageLocation",
+                        "fileName": {
+                            "value": "UN@{dataset().CmdType}_RCTY@{dataset().Rcty}_@{dataset().Year}.zip",
+                            "type": "Expression"
+                        },
+                        "folderPath": {
+                            "value": "annual_un@{dataset().CmdType}data",
+                            "type": "Expression"
+                        },
+                        "container": "tpisundata"
+                    },
+                    "columnDelimiter": ",",
+                    "compressionCodec": "ZipDeflate",
+                    "escapeChar": "\\",
+                    "firstRowAsHeader": true,
+                    "quoteChar": "\""
+                },
+                "schema": [
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    }
+                ]
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/UNDataHttpDataset')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "ComtradeUNLinkedService",
+                    "type": "LinkedServiceReference"
+                },
+                "annotations": [],
+                "type": "DelimitedText",
+                "typeProperties": {
+                    "location": {
+                        "type": "HttpServerLocation",
+                        "relativeUrl": "api/refs/da/view?fmt=csv"
+                    },
+                    "columnDelimiter": ",",
+                    "escapeChar": "\\",
+                    "firstRowAsHeader": true,
+                    "quoteChar": "\""
+                },
+                "schema": []
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/ComtradeUNLinkedService')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/UNDataZipByYearRctyCmdTypeOverHTTP')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "ComtradeUNLinkedService",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "Year": {
+                        "type": "string"
+                    },
+                    "Rcty": {
+                        "type": "string"
+                    },
+                    "CmdType": {
+                        "type": "string"
+                    }
+                },
+                "annotations": [],
+                "type": "Binary",
+                "typeProperties": {
+                    "location": {
+                        "type": "HttpServerLocation",
+                        "relativeUrl": {
+                            "value": "api/get/bulk/C/A/@{dataset().Year}/@{dataset().Rcty}/@{dataset().CmdType}?token=R7+eKQb4wn5PSOBRPKqa/MqOjyNwGCc51m4DFFVLpVP+xJC1B8w7ifujMaUR7A4jQjBjCXzVfuzcCGG3JvC0ehTcmhUkc8MD+57x5IKB7yI3BC/9sXo0I3WrxvTxn7xsDV5YJ+BmcWtFEwQf53XlUg==",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/ComtradeUNLinkedService')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/AzblobunfolderCsv')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "undata_blobpath",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "CmdType": {
+                        "type": "string",
+                        "defaultValue": "@pipeline().parameters.cmd_type"
+                    }
+                },
+                "annotations": [],
+                "type": "Binary",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobStorageLocation",
+                        "folderPath": {
+                            "value": "annual_csv_un@{dataset().CmdType}",
+                            "type": "Expression"
+                        },
+                        "container": "tpisundata"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/undata_blobpath')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/Filler')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "AzureBlobStorageLinkedService",
+                    "type": "LinkedServiceReference"
+                },
+                "annotations": [],
+                "type": "DelimitedText",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobStorageLocation",
+                        "fileName": "filler.csv",
+                        "container": "tpisundata"
+                    },
+                    "columnDelimiter": ",",
+                    "escapeChar": "\\",
+                    "firstRowAsHeader": true,
+                    "quoteChar": "\""
+                },
+                "schema": []
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageLinkedService')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "AzureBlobStorageLinkedService",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "Fname": {
+                        "type": "string"
+                    }
+                },
+                "annotations": [],
+                "type": "DelimitedText",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobStorageLocation",
+                        "fileName": {
+                            "value": "@dataset().Fname",
+                            "type": "Expression"
+                        },
+                        "folderPath": "Testoutput",
+                        "container": "tpisusdata"
+                    },
+                    "columnDelimiter": ",",
+                    "escapeChar": "\\",
+                    "quoteChar": "\""
+                },
+                "schema": []
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageLinkedService')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/FLAT_FILES')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "AzureBlobStorageLinkedService",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "FileName": {
+                        "type": "string",
+                        "defaultValue": "@item().name"
+                    }
+                },
+                "annotations": [],
+                "type": "DelimitedText",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobStorageLocation",
+                        "folderPath": "nov_2020",
+                        "container": "tpisusdata"
+                    },
+                    "columnDelimiter": "\t",
+                    "escapeChar": "\\",
+                    "quoteChar": "\""
+                },
+                "schema": []
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageLinkedService')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/UNHs2020BulkRctypsDbDataset')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "AzureSql_UNCOMTRADE_PROD",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "cmdtype": {
+                        "type": "string",
+                        "defaultValue": "@pipeline().parameters.CmdType"
+                    }
+                },
+                "annotations": [],
+                "type": "AzureSqlTable",
+                "schema": [],
+                "typeProperties": {
+                    "schema": "dbo",
+                    "table": {
+                        "value": "LOAD_UN_@{dataset().cmdtype}_NEW_bulk_rctys",
+                        "type": "Expression"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureSql_UNCOMTRADE_PROD')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/UNDataDbDataset')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "AzureSql_UNCOMTRADE_PROD",
+                    "type": "LinkedServiceReference"
+                },
+                "annotations": [],
+                "type": "AzureSqlTable",
+                "schema": [],
+                "typeProperties": {
+                    "schema": "dbo",
+                    "table": "load_unavail_temp_prod"
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureSql_UNCOMTRADE_PROD')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/TpisDbDataset')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "AzureSql_UNCOMTRADE_PROD",
+                    "type": "LinkedServiceReference"
+                },
+                "annotations": [],
+                "type": "AzureSqlTable",
+                "schema": [],
+                "typeProperties": {}
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureSql_UNCOMTRADE_PROD')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/UNZIP_UNPACK_FILES')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "description": "LOOP THROUGH ZIP FILES AND COPY TO NEW FOLDER UNZIPPED",
+                "activities": [
+                    {
+                        "name": "Get_UN_csv_folder Metadata",
+                        "type": "GetMetadata",
+                        "dependsOn": [],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "dataset": {
+                                "referenceName": "AzblobunfolderCsv",
+                                "type": "DatasetReference",
+                                "parameters": {
+                                    "CmdType": "@pipeline().parameters.cmd_type"
+                                }
+                            },
+                            "fieldList": [
+                                "exists"
+                            ],
+                            "storeSettings": {
+                                "type": "AzureBlobStorageReadSettings",
+                                "recursive": true
+                            },
+                            "formatSettings": {
+                                "type": "BinaryReadSettings"
+                            }
+                        }
+                    },
+                    {
+                        "name": "If Condition1",
+                        "type": "IfCondition",
+                        "dependsOn": [
+                            {
+                                "activity": "Get_UN_csv_folder Metadata",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "userProperties": [],
+                        "typeProperties": {
+                            "expression": {
+                                "value": "@equals(activity('Get_UN_csv_folder Metadata').output.exists, true)",
+                                "type": "Expression"
+                            },
+                            "ifTrueActivities": [
+                                {
+                                    "name": "Delete_UN_CSV_Folder",
+                                    "type": "Delete",
+                                    "dependsOn": [],
+                                    "policy": {
+                                        "timeout": "7.00:00:00",
+                                        "retry": 0,
+                                        "retryIntervalInSeconds": 30,
+                                        "secureOutput": false,
+                                        "secureInput": false
+                                    },
+                                    "userProperties": [],
+                                    "typeProperties": {
+                                        "dataset": {
+                                            "referenceName": "AzblobunfolderCsv",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "CmdType": {
+                                                    "value": "@pipeline().parameters.cmd_type",
+                                                    "type": "Expression"
+                                                }
+                                            }
+                                        },
+                                        "enableLogging": false,
+                                        "storeSettings": {
+                                            "type": "AzureBlobStorageReadSettings",
+                                            "recursive": true
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "UNZIP_FILE_TO UNCOMPRESS",
+                        "type": "ForEach",
+                        "dependsOn": [
+                            {
+                                "activity": "Lookup spt_get_new_un_data_step1",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "userProperties": [],
+                        "typeProperties": {
+                            "items": {
+                                "value": "@activity('Lookup spt_get_new_un_data_step1').output.value",
+                                "type": "Expression"
+                            },
+                            "activities": [
+                                {
+                                    "name": "Copy_and_Unzip",
+                                    "type": "Copy",
+                                    "dependsOn": [],
+                                    "policy": {
+                                        "timeout": "7.00:00:00",
+                                        "retry": 0,
+                                        "retryIntervalInSeconds": 30,
+                                        "secureOutput": false,
+                                        "secureInput": false
+                                    },
+                                    "userProperties": [],
+                                    "typeProperties": {
+                                        "source": {
+                                            "type": "DelimitedTextSource",
+                                            "storeSettings": {
+                                                "type": "AzureBlobStorageReadSettings",
+                                                "recursive": true
+                                            },
+                                            "formatSettings": {
+                                                "type": "DelimitedTextReadSettings",
+                                                "compressionProperties": {
+                                                    "type": "ZipDeflateReadSettings",
+                                                    "preserveZipFileNameAsFolder": false
+                                                }
+                                            }
+                                        },
+                                        "sink": {
+                                            "type": "DelimitedTextSink",
+                                            "storeSettings": {
+                                                "type": "AzureBlobStorageWriteSettings"
+                                            },
+                                            "formatSettings": {
+                                                "type": "DelimitedTextWriteSettings",
+                                                "quoteAllText": true,
+                                                "fileExtension": ".txt"
+                                            }
+                                        },
+                                        "enableStaging": false,
+                                        "parallelCopies": 2,
+                                        "translator": {
+                                            "type": "TabularTranslator",
+                                            "typeConversion": true,
+                                            "typeConversionSettings": {
+                                                "allowDataTruncation": true,
+                                                "treatBooleanAsNumber": false
+                                            }
+                                        }
+                                    },
+                                    "inputs": [
+                                        {
+                                            "referenceName": "unrcty_bulkcsv_blob",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "Rcty": "@item().rcty",
+                                                "Year": "@item().year",
+                                                "CmdType": "@item().cmd_type"
+                                            }
+                                        }
+                                    ],
+                                    "outputs": [
+                                        {
+                                            "referenceName": "unrcty_bulkcsv_txtblob",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "Rcty": "@item().rcty",
+                                                "Year": "@item().year",
+                                                "CmdType": "@item().cmd_type"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Lookup spt_get_new_un_data_step1",
+                        "type": "Lookup",
+                        "dependsOn": [
+                            {
+                                "activity": "If Condition1",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "source": {
+                                "type": "AzureSqlSource",
+                                "sqlReaderStoredProcedureName": "[[dbo].[spt_get_new_un_data_step1]",
+                                "storedProcedureParameters": {
+                                    "p_conc": {
+                                        "type": "String",
+                                        "value": {
+                                            "value": "@pipeline().parameters.cmd_type",
+                                            "type": "Expression"
+                                        }
+                                    }
+                                },
+                                "queryTimeout": "02:00:00",
+                                "partitionOption": "None"
+                            },
+                            "dataset": {
+                                "referenceName": "tpisloadsdb",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            },
+                            "firstRowOnly": false
+                        }
+                    }
+                ],
+                "parameters": {
+                    "cmd_type": {
+                        "type": "string",
+                        "defaultValue": "S1"
+                    }
+                },
+                "annotations": [],
+                "lastPublishTime": "2021-04-20T19:26:28Z"
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/datasets/AzblobunfolderCsv')]",
+                "[concat(variables('factoryId'), '/datasets/tpisloadsdb')]",
+                "[concat(variables('factoryId'), '/datasets/unrcty_bulkcsv_blob')]",
+                "[concat(variables('factoryId'), '/datasets/unrcty_bulkcsv_txtblob')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/Read_US_BlobFiles')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "Get Folder Metadata",
+                        "type": "GetMetadata",
+                        "dependsOn": [],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "dataset": {
+                                "referenceName": "FLAT_FILES",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            },
+                            "fieldList": [
+                                "childItems"
+                            ],
+                            "storeSettings": {
+                                "type": "AzureBlobStorageReadSettings",
+                                "recursive": true,
+                                "enablePartitionDiscovery": false
+                            },
+                            "formatSettings": {
+                                "type": "DelimitedTextReadSettings"
+                            }
+                        }
+                    },
+                    {
+                        "name": "Get_file_names",
+                        "type": "ForEach",
+                        "dependsOn": [
+                            {
+                                "activity": "Get Folder Metadata",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "userProperties": [],
+                        "typeProperties": {
+                            "items": {
+                                "value": "@activity('Get Folder Metadata').output.childItems",
+                                "type": "Expression"
+                            },
+                            "activities": [
+                                {
+                                    "name": "Get File Metadata",
+                                    "type": "GetMetadata",
+                                    "dependsOn": [],
+                                    "policy": {
+                                        "timeout": "7.00:00:00",
+                                        "retry": 0,
+                                        "retryIntervalInSeconds": 30,
+                                        "secureOutput": false,
+                                        "secureInput": false
+                                    },
+                                    "userProperties": [],
+                                    "typeProperties": {
+                                        "dataset": {
+                                            "referenceName": "FLAT_FILE_NAME",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "FileName": {
+                                                    "value": "@item()",
+                                                    "type": "Expression"
+                                                }
+                                            }
+                                        },
+                                        "fieldList": [
+                                            "itemName"
+                                        ],
+                                        "storeSettings": {
+                                            "type": "AzureBlobStorageReadSettings",
+                                            "recursive": true,
+                                            "enablePartitionDiscovery": false
+                                        },
+                                        "formatSettings": {
+                                            "type": "DelimitedTextReadSettings"
+                                        }
+                                    }
+                                },
+                                {
+                                    "name": "Copy File Out_copy1",
+                                    "type": "Copy",
+                                    "dependsOn": [
+                                        {
+                                            "activity": "Get File Metadata",
+                                            "dependencyConditions": [
+                                                "Succeeded"
+                                            ]
+                                        }
+                                    ],
+                                    "policy": {
+                                        "timeout": "7.00:00:00",
+                                        "retry": 0,
+                                        "retryIntervalInSeconds": 30,
+                                        "secureOutput": false,
+                                        "secureInput": false
+                                    },
+                                    "userProperties": [],
+                                    "typeProperties": {
+                                        "source": {
+                                            "type": "DelimitedTextSource",
+                                            "storeSettings": {
+                                                "type": "AzureBlobStorageReadSettings",
+                                                "recursive": true,
+                                                "enablePartitionDiscovery": false
+                                            },
+                                            "formatSettings": {
+                                                "type": "DelimitedTextReadSettings"
+                                            }
+                                        },
+                                        "sink": {
+                                            "type": "DelimitedTextSink",
+                                            "storeSettings": {
+                                                "type": "AzureBlobStorageWriteSettings"
+                                            },
+                                            "formatSettings": {
+                                                "type": "DelimitedTextWriteSettings",
+                                                "quoteAllText": true,
+                                                "fileExtension": ".csv"
+                                            }
+                                        },
+                                        "enableStaging": false,
+                                        "parallelCopies": 1,
+                                        "validateDataConsistency": true,
+                                        "translator": {
+                                            "type": "TabularTranslator",
+                                            "typeConversion": true,
+                                            "typeConversionSettings": {
+                                                "allowDataTruncation": true,
+                                                "treatBooleanAsNumber": false
+                                            }
+                                        }
+                                    },
+                                    "inputs": [
+                                        {
+                                            "referenceName": "FLAT_FILE_NAME",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "FileName": {
+                                                    "value": "@activity('Get File Metadata').output.itemName",
+                                                    "type": "Expression"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "outputs": [
+                                        {
+                                            "referenceName": "DelimitedText1",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "Fname": {
+                                                    "value": "@activity('Get File Metadata').output.itemName\n\n",
+                                                    "type": "Expression"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "annotations": [],
+                "lastPublishTime": "2021-04-16T10:01:12Z"
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/datasets/FLAT_FILES')]",
+                "[concat(variables('factoryId'), '/datasets/FLAT_FILE_NAME')]",
+                "[concat(variables('factoryId'), '/datasets/DelimitedText1')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/UNData')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "Copy UN data to CSV",
+                        "type": "Copy",
+                        "dependsOn": [],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "source": {
+                                "type": "DelimitedTextSource",
+                                "storeSettings": {
+                                    "type": "HttpReadSettings",
+                                    "requestMethod": "GET"
+                                },
+                                "formatSettings": {
+                                    "type": "DelimitedTextReadSettings"
+                                }
+                            },
+                            "sink": {
+                                "type": "DelimitedTextSink",
+                                "storeSettings": {
+                                    "type": "AzureBlobStorageWriteSettings"
+                                },
+                                "formatSettings": {
+                                    "type": "DelimitedTextWriteSettings",
+                                    "quoteAllText": true,
+                                    "fileExtension": ".txt"
+                                }
+                            },
+                            "enableStaging": false
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "UNDataHttpDataset",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "UNDataCsvDataset",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Copy from CSV to DB",
+                        "type": "Copy",
+                        "dependsOn": [
+                            {
+                                "activity": "Copy UN data to CSV",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "source": {
+                                "type": "DelimitedTextSource",
+                                "storeSettings": {
+                                    "type": "AzureBlobStorageReadSettings",
+                                    "recursive": true
+                                },
+                                "formatSettings": {
+                                    "type": "DelimitedTextReadSettings"
+                                }
+                            },
+                            "sink": {
+                                "type": "AzureSqlSink",
+                                "preCopyScript": "TRUNCATE TABLE dbo.LOAD_UNAVAIL_TEMP_PROD",
+                                "disableMetricsCollection": false
+                            },
+                            "enableStaging": false,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "mappings": [
+                                    {
+                                        "source": {
+                                            "name": "type",
+                                            "type": "String",
+                                            "physicalType": "String"
+                                        },
+                                        "sink": {
+                                            "name": "TYPE",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "freq",
+                                            "type": "String",
+                                            "physicalType": "String"
+                                        },
+                                        "sink": {
+                                            "name": "FREQ",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "px",
+                                            "type": "String",
+                                            "physicalType": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PX",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "r",
+                                            "type": "String",
+                                            "physicalType": "String"
+                                        },
+                                        "sink": {
+                                            "name": "R",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "rDesc",
+                                            "type": "String",
+                                            "physicalType": "String"
+                                        },
+                                        "sink": {
+                                            "name": "RDESC",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "ps",
+                                            "type": "String",
+                                            "physicalType": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PS_YEAR",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "TotalRecords",
+                                            "type": "String",
+                                            "physicalType": "String"
+                                        },
+                                        "sink": {
+                                            "name": "TOTALRECORDS",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "isOriginal",
+                                            "type": "String",
+                                            "physicalType": "String"
+                                        },
+                                        "sink": {
+                                            "name": "ISORIGINAL",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "publicationDate",
+                                            "type": "String",
+                                            "physicalType": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PUBLICATIONDATE",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "isPartnerDetail",
+                                            "type": "String",
+                                            "physicalType": "String"
+                                        },
+                                        "sink": {
+                                            "name": "ISPARTNERDETAIL",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    }
+                                ],
+                                "typeConversion": true,
+                                "typeConversionSettings": {
+                                    "allowDataTruncation": true,
+                                    "treatBooleanAsNumber": false
+                                }
+                            }
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "UNDataCsvDataset",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "UNDataDbDataset",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ]
+                    }
+                ],
+                "annotations": [],
+                "lastPublishTime": "2021-04-19T14:51:26Z"
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/datasets/UNDataHttpDataset')]",
+                "[concat(variables('factoryId'), '/datasets/UNDataCsvDataset')]",
+                "[concat(variables('factoryId'), '/datasets/UNDataDbDataset')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/LoadZipFile_toTPISMI')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "Load data",
+                        "type": "Copy",
+                        "dependsOn": [],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "source": {
+                                "type": "DelimitedTextSource",
+                                "storeSettings": {
+                                    "type": "AzureBlobStorageReadSettings",
+                                    "recursive": true
+                                },
+                                "formatSettings": {
+                                    "type": "DelimitedTextReadSettings",
+                                    "compressionProperties": {
+                                        "type": "ZipDeflateReadSettings"
+                                    }
+                                }
+                            },
+                            "sink": {
+                                "type": "AzureSqlSink"
+                            },
+                            "enableStaging": false,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "mappings": [
+                                    {
+                                        "source": {
+                                            "name": "Classification",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "CLASS",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Year",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "YEAR",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Period",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PERIOD",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Period Desc.",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PERIOD_DESC",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Aggregate Level",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "AGG_LEVEL",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Is Leaf Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "IS_LEAF_CODE",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Trade Flow Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "TRADE_FLOW_CODE",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Trade Flow",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "TRADE_FLOW",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Reporter Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "REPORTER_CODE",
+                                            "type": "Int32"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Reporter",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "REPORTER_NAME",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Reporter ISO",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "REPORTER_ISO",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Partner Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PARTNER_CODE",
+                                            "type": "Int32"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Partner",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PARTNER_NAME",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Partner ISO",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PARTNER_ISO",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Commodity Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "COMMODITY_CODE",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Commodity",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "COMMODITY_DESC",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Qty Unit Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "QTY_UNIT_CODE",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Qty Unit",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "QTY_UNIT_DESC",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Qty",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "QTY_VALUE",
+                                            "type": "Decimal"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Netweight (kg)",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "NETWEIGHT_KG_VALUE",
+                                            "type": "Decimal"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Trade Value (US$)",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "TRADE_VALUE",
+                                            "type": "Decimal"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Flag",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "FLAG",
+                                            "type": "String"
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "UnDataCompressedParameterizedDataset",
+                                "type": "DatasetReference",
+                                "parameters": {
+                                    "Rcty": {
+                                        "value": "@pipeline().parameters.Rcty",
+                                        "type": "Expression"
+                                    },
+                                    "Year": {
+                                        "value": "@pipeline().parameters.Year",
+                                        "type": "Expression"
+                                    },
+                                    "CmdType": {
+                                        "value": "@pipeline().parameters.CmdType",
+                                        "type": "Expression"
+                                    }
+                                }
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "UNHs2020BulkRctypsDbDataset",
+                                "type": "DatasetReference",
+                                "parameters": {
+                                    "cmdtype": "@pipeline().parameters.CmdType"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "parameters": {
+                    "Rcty": {
+                        "type": "string"
+                    },
+                    "Year": {
+                        "type": "string"
+                    },
+                    "CmdType": {
+                        "type": "string"
+                    }
+                },
+                "annotations": [],
+                "lastPublishTime": "2021-04-16T10:01:12Z"
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/datasets/UnDataCompressedParameterizedDataset')]",
+                "[concat(variables('factoryId'), '/datasets/UNHs2020BulkRctypsDbDataset')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/LoadZipFile')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "Load data",
+                        "type": "Copy",
+                        "dependsOn": [],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "source": {
+                                "type": "DelimitedTextSource",
+                                "storeSettings": {
+                                    "type": "AzureBlobStorageReadSettings",
+                                    "recursive": true
+                                },
+                                "formatSettings": {
+                                    "type": "DelimitedTextReadSettings",
+                                    "compressionProperties": {
+                                        "type": "ZipDeflateReadSettings"
+                                    }
+                                }
+                            },
+                            "sink": {
+                                "type": "AzureSqlSink"
+                            },
+                            "enableStaging": false,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "mappings": [
+                                    {
+                                        "source": {
+                                            "name": "Classification",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "CLASS",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Year",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "YEAR",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Period",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PERIOD",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Period Desc.",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PERIOD_DESC",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Aggregate Level",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "AGG_LEVEL",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Is Leaf Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "IS_LEAF_CODE",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Trade Flow Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "TRADE_FLOW_CODE",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Trade Flow",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "TRADE_FLOW",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Reporter Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "REPORTER_CODE",
+                                            "type": "Int32"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Reporter",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "REPORTER_NAME",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Reporter ISO",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "REPORTER_ISO",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Partner Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PARTNER_CODE",
+                                            "type": "Int32"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Partner",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PARTNER_NAME",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Partner ISO",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PARTNER_ISO",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Commodity Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "COMMODITY_CODE",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Commodity",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "COMMODITY_DESC",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Qty Unit Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "QTY_UNIT_CODE",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Qty Unit",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "QTY_UNIT_DESC",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Qty",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "QTY_VALUE",
+                                            "type": "Decimal"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Netweight (kg)",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "NETWEIGHT_KG_VALUE",
+                                            "type": "Decimal"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Trade Value (US$)",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "TRADE_VALUE",
+                                            "type": "Decimal"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Flag",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "FLAG",
+                                            "type": "String"
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "UnDataCompressedParameterizedDataset",
+                                "type": "DatasetReference",
+                                "parameters": {
+                                    "Rcty": {
+                                        "value": "@pipeline().parameters.Rcty",
+                                        "type": "Expression"
+                                    },
+                                    "Year": {
+                                        "value": "@pipeline().parameters.Year",
+                                        "type": "Expression"
+                                    },
+                                    "CmdType": {
+                                        "value": "@pipeline().parameters.CmdType",
+                                        "type": "Expression"
+                                    }
+                                }
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "UNHs2020BulkRctypsDbDataset",
+                                "type": "DatasetReference",
+                                "parameters": {
+                                    "cmdtype": "@pipeline().parameters.CmdType"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "parameters": {
+                    "Rcty": {
+                        "type": "string"
+                    },
+                    "Year": {
+                        "type": "string"
+                    },
+                    "CmdType": {
+                        "type": "string"
+                    }
+                },
+                "annotations": [],
+                "lastPublishTime": "2021-04-19T15:10:04Z"
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/datasets/UnDataCompressedParameterizedDataset')]",
+                "[concat(variables('factoryId'), '/datasets/UNHs2020BulkRctypsDbDataset')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/LoadZipFile_UN_COMTRADE')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "Load data",
+                        "type": "Copy",
+                        "dependsOn": [],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "source": {
+                                "type": "DelimitedTextSource",
+                                "storeSettings": {
+                                    "type": "AzureBlobStorageReadSettings",
+                                    "recursive": true
+                                },
+                                "formatSettings": {
+                                    "type": "DelimitedTextReadSettings",
+                                    "compressionProperties": {
+                                        "type": "ZipDeflateReadSettings"
+                                    }
+                                }
+                            },
+                            "sink": {
+                                "type": "AzureSqlSink"
+                            },
+                            "enableStaging": false,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "mappings": [
+                                    {
+                                        "source": {
+                                            "name": "Classification",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "CLASS",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Year",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "YEAR",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Period",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PERIOD",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Period Desc.",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PERIOD_DESC",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Aggregate Level",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "AGG_LEVEL",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Is Leaf Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "IS_LEAF_CODE",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Trade Flow Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "TRADE_FLOW_CODE",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Trade Flow",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "TRADE_FLOW",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Reporter Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "REPORTER_CODE",
+                                            "type": "Int32"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Reporter",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "REPORTER_NAME",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Reporter ISO",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "REPORTER_ISO",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Partner Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PARTNER_CODE",
+                                            "type": "Int32"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Partner",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PARTNER_NAME",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Partner ISO",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "PARTNER_ISO",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Commodity Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "COMMODITY_CODE",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Commodity",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "COMMODITY_DESC",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Qty Unit Code",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "QTY_UNIT_CODE",
+                                            "type": "Int16"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Qty Unit",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "QTY_UNIT_DESC",
+                                            "type": "String"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Qty",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "QTY_VALUE",
+                                            "type": "Decimal"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Netweight (kg)",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "NETWEIGHT_KG_VALUE",
+                                            "type": "Decimal"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Trade Value (US$)",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "TRADE_VALUE",
+                                            "type": "Decimal"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "name": "Flag",
+                                            "type": "String"
+                                        },
+                                        "sink": {
+                                            "name": "FLAG",
+                                            "type": "String"
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "UnDataCompressedParameterizedDataset",
+                                "type": "DatasetReference",
+                                "parameters": {
+                                    "Rcty": {
+                                        "value": "@pipeline().parameters.Rcty",
+                                        "type": "Expression"
+                                    },
+                                    "Year": {
+                                        "value": "@pipeline().parameters.Year",
+                                        "type": "Expression"
+                                    },
+                                    "CmdType": {
+                                        "value": "@pipeline().parameters.CmdType",
+                                        "type": "Expression"
+                                    }
+                                }
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "UNHs2020BulkRctypsDbDataset",
+                                "type": "DatasetReference",
+                                "parameters": {
+                                    "cmdtype": "@pipeline().parameters.CmdType"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "parameters": {
+                    "Rcty": {
+                        "type": "string"
+                    },
+                    "Year": {
+                        "type": "string"
+                    },
+                    "CmdType": {
+                        "type": "string"
+                    }
+                },
+                "annotations": [],
+                "lastPublishTime": "2021-04-16T10:01:12Z"
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/datasets/UnDataCompressedParameterizedDataset')]",
+                "[concat(variables('factoryId'), '/datasets/UNHs2020BulkRctypsDbDataset')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/ExtractAndLoadUnZipFiles')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "Lookup spt_get_new_un_data_step1",
+                        "type": "Lookup",
+                        "dependsOn": [
+                            {
+                                "activity": "If annual_data folder exists",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "source": {
+                                "type": "AzureSqlSource",
+                                "sqlReaderStoredProcedureName": "[[dbo].[spt_get_new_un_data_step1]",
+                                "storedProcedureParameters": {
+                                    "p_conc": {
+                                        "type": "String",
+                                        "value": {
+                                            "value": "@pipeline().parameters.cmdtype",
+                                            "type": "Expression"
+                                        }
+                                    }
+                                },
+                                "queryTimeout": "02:00:00",
+                                "partitionOption": "None"
+                            },
+                            "dataset": {
+                                "referenceName": "TpisDbDataset",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            },
+                            "firstRowOnly": false
+                        }
+                    },
+                    {
+                        "name": "CopyEachUNZipFileToBlobStorage",
+                        "type": "ForEach",
+                        "dependsOn": [
+                            {
+                                "activity": "Lookup spt_get_new_un_data_step1",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "userProperties": [],
+                        "typeProperties": {
+                            "items": {
+                                "value": "@activity('Lookup spt_get_new_un_data_step1').output.value",
+                                "type": "Expression"
+                            },
+                            "batchCount": 2,
+                            "activities": [
+                                {
+                                    "name": "CopyUNZipToBlobStorage",
+                                    "type": "Copy",
+                                    "dependsOn": [],
+                                    "policy": {
+                                        "timeout": "7.00:00:00",
+                                        "retry": 1,
+                                        "retryIntervalInSeconds": 30,
+                                        "secureOutput": false,
+                                        "secureInput": false
+                                    },
+                                    "userProperties": [],
+                                    "typeProperties": {
+                                        "source": {
+                                            "type": "BinarySource",
+                                            "storeSettings": {
+                                                "type": "HttpReadSettings",
+                                                "requestMethod": "GET",
+                                                "requestTimeout": "00:02:00"
+                                            },
+                                            "formatSettings": {
+                                                "type": "BinaryReadSettings"
+                                            }
+                                        },
+                                        "sink": {
+                                            "type": "BinarySink",
+                                            "storeSettings": {
+                                                "type": "AzureBlobStorageWriteSettings"
+                                            }
+                                        },
+                                        "enableStaging": false
+                                    },
+                                    "inputs": [
+                                        {
+                                            "referenceName": "UNDataZipByYearRctyCmdTypeOverHTTP",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "Year": {
+                                                    "value": "@item().year",
+                                                    "type": "Expression"
+                                                },
+                                                "Rcty": {
+                                                    "value": "@item().rcty",
+                                                    "type": "Expression"
+                                                },
+                                                "CmdType": {
+                                                    "value": "@item().cmd_type",
+                                                    "type": "Expression"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "outputs": [
+                                        {
+                                            "referenceName": "UNDataZipBlobRctyYearCmdType",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "Rcty": {
+                                                    "value": "@item().rcty",
+                                                    "type": "Expression"
+                                                },
+                                                "Year": {
+                                                    "value": "@item().year",
+                                                    "type": "Expression"
+                                                },
+                                                "CmdType": {
+                                                    "value": "@item().cmd_type",
+                                                    "type": "Expression"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "LoadEachUNZipFileToDb",
+                        "type": "ForEach",
+                        "dependsOn": [
+                            {
+                                "activity": "TRUNCATE_LOAD_UN_BULK_RCTYS_TABLE",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "userProperties": [],
+                        "typeProperties": {
+                            "items": {
+                                "value": "@activity('Lookup spt_get_new_un_data_step1').output.value",
+                                "type": "Expression"
+                            },
+                            "isSequential": false,
+                            "activities": [
+                                {
+                                    "name": "LoadUNZipFileToDb",
+                                    "type": "ExecutePipeline",
+                                    "dependsOn": [],
+                                    "userProperties": [],
+                                    "typeProperties": {
+                                        "pipeline": {
+                                            "referenceName": "LoadZipFile",
+                                            "type": "PipelineReference"
+                                        },
+                                        "waitOnCompletion": true,
+                                        "parameters": {
+                                            "Rcty": {
+                                                "value": "@item().rcty",
+                                                "type": "Expression"
+                                            },
+                                            "Year": {
+                                                "value": "@item().year",
+                                                "type": "Expression"
+                                            },
+                                            "CmdType": {
+                                                "value": "@item().cmd_type",
+                                                "type": "Expression"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "TRUNCATE_LOAD_UN_BULK_RCTYS_TABLE",
+                        "type": "Copy",
+                        "dependsOn": [
+                            {
+                                "activity": "CopyEachUNZipFileToBlobStorage",
+                                "dependencyConditions": [
+                                    "Completed"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "source": {
+                                "type": "AzureSqlSource",
+                                "sqlReaderQuery": {
+                                    "value": "TRUNCATE TABLE dbo.LOAD_UN_@{pipeline().parameters.cmdtype}_NEW_bulk_rctys;\nSELECT CURRENT_TIMESTAMP",
+                                    "type": "Expression"
+                                },
+                                "queryTimeout": "02:00:00",
+                                "partitionOption": "None"
+                            },
+                            "sink": {
+                                "type": "DelimitedTextSink",
+                                "storeSettings": {
+                                    "type": "AzureBlobStorageWriteSettings"
+                                },
+                                "formatSettings": {
+                                    "type": "DelimitedTextWriteSettings",
+                                    "quoteAllText": true,
+                                    "fileExtension": ".txt"
+                                }
+                            },
+                            "enableStaging": false,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "typeConversion": true,
+                                "typeConversionSettings": {
+                                    "allowDataTruncation": true,
+                                    "treatBooleanAsNumber": false
+                                }
+                            }
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "TpisDbDataset",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "Filler",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Get annual_data metadata",
+                        "type": "GetMetadata",
+                        "dependsOn": [],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "dataset": {
+                                "referenceName": "UNAnnualDataFolderCsv",
+                                "type": "DatasetReference",
+                                "parameters": {
+                                    "cmd_type": "S1"
+                                }
+                            },
+                            "fieldList": [
+                                "exists"
+                            ],
+                            "storeSettings": {
+                                "type": "AzureBlobStorageReadSettings",
+                                "recursive": true
+                            },
+                            "formatSettings": {
+                                "type": "BinaryReadSettings"
+                            }
+                        }
+                    },
+                    {
+                        "name": "If annual_data folder exists",
+                        "type": "IfCondition",
+                        "dependsOn": [
+                            {
+                                "activity": "Get annual_data metadata",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "userProperties": [],
+                        "typeProperties": {
+                            "expression": {
+                                "value": "@equals(activity('Get annual_data metadata').output.exists, true)",
+                                "type": "Expression"
+                            },
+                            "ifTrueActivities": [
+                                {
+                                    "name": "Delete annual_data folder",
+                                    "type": "Delete",
+                                    "dependsOn": [],
+                                    "policy": {
+                                        "timeout": "7.00:00:00",
+                                        "retry": 0,
+                                        "retryIntervalInSeconds": 30,
+                                        "secureOutput": false,
+                                        "secureInput": false
+                                    },
+                                    "userProperties": [],
+                                    "typeProperties": {
+                                        "dataset": {
+                                            "referenceName": "UNAnnualDataFolderCsv",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "cmd_type": "HS"
+                                            }
+                                        },
+                                        "enableLogging": false,
+                                        "storeSettings": {
+                                            "type": "AzureBlobStorageReadSettings",
+                                            "recursive": true
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "parameters": {
+                    "cmdtype": {
+                        "type": "string",
+                        "defaultValue": "S1"
+                    }
+                },
+                "annotations": [],
+                "lastPublishTime": "2021-04-16T10:01:13Z"
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/datasets/TpisDbDataset')]",
+                "[concat(variables('factoryId'), '/datasets/Filler')]",
+                "[concat(variables('factoryId'), '/datasets/UNAnnualDataFolderCsv')]",
+                "[concat(variables('factoryId'), '/datasets/UNDataZipByYearRctyCmdTypeOverHTTP')]",
+                "[concat(variables('factoryId'), '/datasets/UNDataZipBlobRctyYearCmdType')]",
+                "[concat(variables('factoryId'), '/pipelines/LoadZipFile')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/ExtractAndLoadUnZipFiles_NEW')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "Lookup spt_get_new_un_data_step1",
+                        "type": "Lookup",
+                        "dependsOn": [
+                            {
+                                "activity": "If annual_data folder exists",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "source": {
+                                "type": "AzureSqlSource",
+                                "sqlReaderStoredProcedureName": "[[dbo].[spt_get_new_un_data_step1]",
+                                "storedProcedureParameters": {
+                                    "p_conc": {
+                                        "type": "String",
+                                        "value": {
+                                            "value": "@pipeline().parameters.cmdtype",
+                                            "type": "Expression"
+                                        }
+                                    }
+                                },
+                                "queryTimeout": "02:00:00",
+                                "partitionOption": "None"
+                            },
+                            "dataset": {
+                                "referenceName": "TpisDbDataset",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            },
+                            "firstRowOnly": false
+                        }
+                    },
+                    {
+                        "name": "CopyEachUNZipFileToBlobStorage",
+                        "type": "ForEach",
+                        "dependsOn": [
+                            {
+                                "activity": "Lookup spt_get_new_un_data_step1",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "userProperties": [],
+                        "typeProperties": {
+                            "items": {
+                                "value": "@activity('Lookup spt_get_new_un_data_step1').output.value",
+                                "type": "Expression"
+                            },
+                            "batchCount": 2,
+                            "activities": [
+                                {
+                                    "name": "CopyUNZipToBlobStorage",
+                                    "type": "Copy",
+                                    "dependsOn": [],
+                                    "policy": {
+                                        "timeout": "7.00:00:00",
+                                        "retry": 1,
+                                        "retryIntervalInSeconds": 30,
+                                        "secureOutput": false,
+                                        "secureInput": false
+                                    },
+                                    "userProperties": [],
+                                    "typeProperties": {
+                                        "source": {
+                                            "type": "BinarySource",
+                                            "storeSettings": {
+                                                "type": "HttpReadSettings",
+                                                "requestMethod": "GET",
+                                                "requestTimeout": "00:02:00"
+                                            },
+                                            "formatSettings": {
+                                                "type": "BinaryReadSettings"
+                                            }
+                                        },
+                                        "sink": {
+                                            "type": "BinarySink",
+                                            "storeSettings": {
+                                                "type": "AzureBlobStorageWriteSettings"
+                                            }
+                                        },
+                                        "enableStaging": false
+                                    },
+                                    "inputs": [
+                                        {
+                                            "referenceName": "UNDataZipByYearRctyCmdTypeOverHTTP",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "Year": {
+                                                    "value": "@item().year",
+                                                    "type": "Expression"
+                                                },
+                                                "Rcty": {
+                                                    "value": "@item().rcty",
+                                                    "type": "Expression"
+                                                },
+                                                "CmdType": {
+                                                    "value": "@item().cmd_type",
+                                                    "type": "Expression"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "outputs": [
+                                        {
+                                            "referenceName": "UNDataZipBlobRctyYearCmdType",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "Rcty": {
+                                                    "value": "@item().rcty",
+                                                    "type": "Expression"
+                                                },
+                                                "Year": {
+                                                    "value": "@item().year",
+                                                    "type": "Expression"
+                                                },
+                                                "CmdType": {
+                                                    "value": "@item().cmd_type",
+                                                    "type": "Expression"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "LoadEachUNZipFileToDb",
+                        "type": "ForEach",
+                        "dependsOn": [
+                            {
+                                "activity": "TRUNCATE_LOAD_UN_BULK_RCTYS_TABLE",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "userProperties": [],
+                        "typeProperties": {
+                            "items": {
+                                "value": "@activity('Lookup spt_get_new_un_data_step1').output.value",
+                                "type": "Expression"
+                            },
+                            "isSequential": false,
+                            "activities": [
+                                {
+                                    "name": "LoadUNZipFileToDb",
+                                    "type": "ExecutePipeline",
+                                    "dependsOn": [],
+                                    "userProperties": [],
+                                    "typeProperties": {
+                                        "pipeline": {
+                                            "referenceName": "LoadZipFile",
+                                            "type": "PipelineReference"
+                                        },
+                                        "waitOnCompletion": true,
+                                        "parameters": {
+                                            "Rcty": {
+                                                "value": "@item().rcty",
+                                                "type": "Expression"
+                                            },
+                                            "Year": {
+                                                "value": "@item().year",
+                                                "type": "Expression"
+                                            },
+                                            "CmdType": {
+                                                "value": "@item().cmd_type",
+                                                "type": "Expression"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "TRUNCATE_LOAD_UN_BULK_RCTYS_TABLE",
+                        "type": "Copy",
+                        "dependsOn": [
+                            {
+                                "activity": "CopyEachUNZipFileToBlobStorage",
+                                "dependencyConditions": [
+                                    "Completed"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "source": {
+                                "type": "AzureSqlSource",
+                                "sqlReaderQuery": {
+                                    "value": "TRUNCATE TABLE dbo.LOAD_UN_@{pipeline().parameters.cmdtype}_NEW_bulk_rctys;\nSELECT CURRENT_TIMESTAMP",
+                                    "type": "Expression"
+                                },
+                                "queryTimeout": "02:00:00",
+                                "partitionOption": "None"
+                            },
+                            "sink": {
+                                "type": "DelimitedTextSink",
+                                "storeSettings": {
+                                    "type": "AzureBlobStorageWriteSettings"
+                                },
+                                "formatSettings": {
+                                    "type": "DelimitedTextWriteSettings",
+                                    "quoteAllText": true,
+                                    "fileExtension": ".txt"
+                                }
+                            },
+                            "enableStaging": false,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "typeConversion": true,
+                                "typeConversionSettings": {
+                                    "allowDataTruncation": true,
+                                    "treatBooleanAsNumber": false
+                                }
+                            }
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "TpisDbDataset",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "Filler",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Get annual_data metadata",
+                        "type": "GetMetadata",
+                        "dependsOn": [],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "dataset": {
+                                "referenceName": "UNAnnualDataFolderCsv",
+                                "type": "DatasetReference",
+                                "parameters": {
+                                    "cmd_type": {
+                                        "value": "@pipeline().parameters.CmdType",
+                                        "type": "Expression"
+                                    }
+                                }
+                            },
+                            "fieldList": [
+                                "exists"
+                            ],
+                            "storeSettings": {
+                                "type": "AzureBlobStorageReadSettings",
+                                "recursive": true
+                            },
+                            "formatSettings": {
+                                "type": "BinaryReadSettings"
+                            }
+                        }
+                    },
+                    {
+                        "name": "If annual_data folder exists",
+                        "type": "IfCondition",
+                        "dependsOn": [
+                            {
+                                "activity": "Get annual_data metadata",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "userProperties": [],
+                        "typeProperties": {
+                            "expression": {
+                                "value": "@equals(activity('Get annual_data metadata').output.exists, true)",
+                                "type": "Expression"
+                            },
+                            "ifTrueActivities": [
+                                {
+                                    "name": "Delete annual_data folder",
+                                    "type": "Delete",
+                                    "dependsOn": [],
+                                    "policy": {
+                                        "timeout": "7.00:00:00",
+                                        "retry": 0,
+                                        "retryIntervalInSeconds": 30,
+                                        "secureOutput": false,
+                                        "secureInput": false
+                                    },
+                                    "userProperties": [],
+                                    "typeProperties": {
+                                        "dataset": {
+                                            "referenceName": "UNAnnualDataFolderCsv",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "cmd_type": "@pipeline().parameters.CmdType"
+                                            }
+                                        },
+                                        "enableLogging": false,
+                                        "storeSettings": {
+                                            "type": "AzureBlobStorageReadSettings",
+                                            "recursive": true
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "parameters": {
+                    "cmdtype": {
+                        "type": "string",
+                        "defaultValue": "S1"
+                    }
+                },
+                "annotations": [],
+                "lastPublishTime": "2021-04-19T15:10:05Z"
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/datasets/TpisDbDataset')]",
+                "[concat(variables('factoryId'), '/datasets/Filler')]",
+                "[concat(variables('factoryId'), '/datasets/UNAnnualDataFolderCsv')]",
+                "[concat(variables('factoryId'), '/datasets/UNDataZipByYearRctyCmdTypeOverHTTP')]",
+                "[concat(variables('factoryId'), '/datasets/UNDataZipBlobRctyYearCmdType')]",
+                "[concat(variables('factoryId'), '/pipelines/LoadZipFile')]"
+            ]
+        }
+    ]
+}
