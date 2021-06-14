@@ -1,4 +1,4 @@
-#  Deploying a Template
+#  Deploying an arm Template
 There are several ways to deploy a template.
 We will cover in high level some of the deployment methods, to get you started with deploying templates:
 
