@@ -19,9 +19,8 @@ New-AzResourceGroup `
   -Name ITA-MDS-Prod-Storage-East1 `
   -Location "East US"
 
-#set your RG & storage account name
+#set your RG name
 $RGName ="ITA-MDS-Prod-Storage-East1"
-$StorageAccountName = "mdspublicprodtest"
 
 
 #this will deploy ARM template
