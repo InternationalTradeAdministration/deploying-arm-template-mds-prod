@@ -9,7 +9,7 @@
             "value": "Administrator2021$"
         },
         "serverName": {
-            "value": "ita-mds-tpisserver-prod-east1"
+            "value": "ita-mds-tpisserver-test-east1"
         },
         "serverLocation": {
             "value": "eastus"
