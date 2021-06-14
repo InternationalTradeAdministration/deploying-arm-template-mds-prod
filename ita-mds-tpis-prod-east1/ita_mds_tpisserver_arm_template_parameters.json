@@ -9,7 +9,7 @@
             "value": "Administrator2021$"
         },
         "serverName": {
-            "value": "ita-mds-tpisserver-test-east1"
+            "value": "ita-mds-tpisserver-prod-east1"
         },
         "serverLocation": {
             "value": "eastus"
@@ -61,7 +61,7 @@
             }
         },
         "maintenanceConfigurationId": {
-            "value": "/subscriptions/a841ba7e-6d43-49bb-8fff-fcc287a14bea/providers/Microsoft.Maintenance/publicMaintenanceConfigurations/SQL_Default"
+            "value": "/subscriptions/675d7977-79af-4b94-b0bd-26d4095a4ffb/providers/Microsoft.Maintenance/publicMaintenanceConfigurations/SQL_Default"
         }
     }
 }
