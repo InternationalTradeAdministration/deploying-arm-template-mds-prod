@@ -1,4 +1,4 @@
-#  Deploying Arm Template MDS Prod
+# Deploying Arm Template MDS Prod
 There are several ways to deploy a template.
 We will cover in high level some of the deployment methods, to get you started with deploying templates:
 
