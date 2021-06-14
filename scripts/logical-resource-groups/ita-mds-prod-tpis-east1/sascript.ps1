@@ -1,17 +1,16 @@
-﻿#connect to your account and specify the subscription to deploy to
+﻿
+#connect to your account and specify the subscription to deploy to
 Connect-AzAccount -Subscription <subscription>
 
 #create a new resources group if it doesnt exist and specify the location
 New-AzResourceGroup `
-  -Name ita-mds-prod-east1 `
+  -Name ITA-MDS-TPIS-Prod-East1  `
   -Location "East US"
 
-#set your RG & apim name and other details 
-$RGName ="ita-mds-prod-east1"
-$ApimServiceName = "apim-mds-prod"
-$Location = "East US"
-$Organisation = "<organizationname>"
-$AdminEmail = "<adminemail>"
+#set your RG & storage account name
+$RGName ="ITA-MDS-TPIS-Prod-East1 "
+$StorageAccountName = "tpisprod"
+
 
 #this will deploy ARM template
 New-AzResourceGroupDeployment `
@@ -21,3 +20,20 @@ New-AzResourceGroupDeployment `
 -TemplateParameterUri <PathOrLinkToParameterUri>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+f77f3fb8-7095-4b35-aec0-49340169db57

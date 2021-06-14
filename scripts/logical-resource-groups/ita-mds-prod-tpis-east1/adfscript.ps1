@@ -1,7 +1,7 @@
 ﻿#connect to your account and specify the subscription to deploy to
 Connect-AzAccount -Subscription <subscription>
 
-#create a new resources group and specify the location
+#create a new resources group if it doesnt exist and specify the location
 New-AzResourceGroup `
   -Name ita-mds-prod-tpis-east1 `
   -Location "East US"
