@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "storageAccounts_sqlvajr2huuk43qizu_name": {
-            "defaultValue": "sqlvajr2huuk43qizu",
+            "defaultValue": "C",
             "type": "String"
         }
     },

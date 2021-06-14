@@ -6,7 +6,7 @@
             "value": "eastus"
         },
         "storageAccountName": {
-            "value": "mdspublicprodtest"
+            "value": "mdspublicprod"
         },
         "accountType": {
             "value": "Standard_LRS"
