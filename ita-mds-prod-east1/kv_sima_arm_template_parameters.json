@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "name": {
-            "value": "ita-kv-mdssima-test"
+            "value": "ita-kv-mdssima-prod"
         },
         "location": {
             "value": "eastus"
