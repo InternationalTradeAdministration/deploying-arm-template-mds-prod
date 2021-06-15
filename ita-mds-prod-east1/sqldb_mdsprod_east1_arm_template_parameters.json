@@ -12,7 +12,7 @@
             "value": "SQL_Latin1_General_CP1_CI_AS"
         },
         "databaseName": {
-            "value": "ITA-MDS-Test-East1DB"
+            "value": "ITA-MDS-Prod-East1DB"
         },
         "tier": {
             "value": "GeneralPurpose"
@@ -27,7 +27,7 @@
             "value": 34359738368
         },
         "serverName": {
-            "value": "ita-mds-test-east1"
+            "value": "ita-mds-prod-east1"
         },
         "sampleName": {
             "value": ""

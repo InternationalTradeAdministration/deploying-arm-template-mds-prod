@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "routeTables_rt_ita_mds_prod_est1_name": {
-            "value": "rt-ita-mds-prod-east1-test"
+            "value": "rt-ita-mds-prod-east1"
         }
     }
 }

@@ -3,13 +3,13 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "virtualNetworks_vnet_ita_mds_prod_est1_name": {
-            "value": "vnet-ita-mds-prod-east1-test"
+            "value": "vnet-ita-mds-prod-east1"
         },
         "networkSecurityGroups_nsg_ita_mds_prod_est1_externalid": {
-            "value": "/subscriptions/675d7977-79af-4b94-b0bd-26d4095a4ffb/resourceGroups/ITA-MSDataServices-Dev-East1/providers/Microsoft.Network/networkSecurityGroups/nsg-ita-mds-prod-east1-test"
+            "value": "/subscriptions/<YourSubscriptionId>/resourceGroups/ITA-MDS-Prod-East1 /providers/Microsoft.Network/networkSecurityGroups/nsg-ita-mds-prod-east1"
         },
         "routeTables_rt_ita_mds_prod_est1_externalid": {
-            "value": "/subscriptions/675d7977-79af-4b94-b0bd-26d4095a4ffb/resourceGroups/ITA-MSDataServices-Dev-East1/providers/Microsoft.Network/routeTables/rt-ita-mds-prod-east1-test"
+            "value": "/subscriptions/<YourSubscriptionId>/resourceGroups/ITA-MDS-Prod-East1/providers/Microsoft.Network/routeTables/rt-ita-mds-prod-east1-test"
         }
     }
 }

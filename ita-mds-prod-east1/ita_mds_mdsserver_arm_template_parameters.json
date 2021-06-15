@@ -18,7 +18,7 @@
             "value": 429496729600
         },
         "serverName": {
-            "value": "ita-mds-test-east1"
+            "value": "ita-mds-prod-east1"
         },
         "serverLocation": {
             "value": "eastus"
@@ -120,7 +120,7 @@
             "value": ""
         },
         "maintenanceConfigurationId": {
-            "value": "/subscriptions/a841ba7e-6d43-49bb-8fff-fcc287a14bea/providers/Microsoft.Maintenance/publicMaintenanceConfigurations/SQL_Default"
+            "value": "/subscriptions/<subscription>/providers/Microsoft.Maintenance/publicMaintenanceConfigurations/SQL_Default"
         }
     }
 }

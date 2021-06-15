@@ -2,8 +2,8 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "networkSecurityGroups_nsg_ita_mds_prod_est1_name": {
-            "value": "nsg-ita-mds-prod-east1"
+        "servers_ita_mds_tsictoserver_prod_east1_name": {
+            "value": "ita-mds-tsictoserver-prod-east1"
         }
     }
 }
