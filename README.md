@@ -44,7 +44,7 @@ Deploy with template and parameters file URIs:
 New-AzureRmResourceGroupDeployment -Name MyARMDeployment -ResourceGroupName ITA-MDS-Prod-Storage-East1 -TemplateUri <templateuri> -TemplateParameterUri <parametersfileuri>
 ```
 ## Command Line Interface
-I assume that you have some experiance with using the Azure CLI. if not, no harm - get started with [this](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-azure-resource-manager/) overview.
+We can also use Azure CLI to deploy azure arm templates. Get started with [Manage Azure resources by using Azure CLI](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-cli) overview.
 The follwoing deploys a local template file using inline parameters:
 ```bash
 azure login
@@ -70,8 +70,8 @@ The Azure Portal allows you to deploy your own templates in a UI exepriance.
 1. In the azure Portal, go to the marketplace blade, and search for "Template Deployment":
 [azure template deployment](https://portal.azure.com/#blade/Microsoft_Azure_Marketplace/MarketplaceOffersBlade/selectedMenuItemId/home)
 
-2. Paste/write you template in the "Edit Template" section, update the parameters and deploy:
-[edit template](https://portal.azure.com/#blade/HubsExtension/TemplateEditorBladeV2/template/%7B%0A%20%20%20%20%22%24schema%22%3A%20%22https%3A%2F%2Fschema.management.azure.com%2Fschemas%2F2019-04-01%2FdeploymentTemplate.json%23%22%2C%0A%20%20%20%20%22contentVersion%22%3A%20%221.0.0.0%22%2C%0A%20%20%20%20%22parameters%22%3A%20%7B%7D%2C%0A%20%20%20%20%22resources%22%3A%20%5B%5D%0A%7D)
+2. Upload or write your template in the "Edit Template" section under "built your own template in the editor". Update the parameters and deploy:
+[edit template](https://portal.azure.com/#create/Microsoft.Template)
 
 ## Resorces and References
 https://azure.microsoft.com/en-us/documentation/articles/resource-group-template-deploy/
