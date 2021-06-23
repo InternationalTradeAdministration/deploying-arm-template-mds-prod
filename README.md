@@ -20,7 +20,6 @@ New-AzResourceGroup `
 #set your RG name
 $RGName ="ITA-MDS-Prod-Storage-East1"
 
-
 #this will deploy ARM template
 New-AzResourceGroupDeployment `
 -Name MyARMDeployment `
@@ -69,10 +68,10 @@ Deploying using a parameters file:
 The Azure Portal allows you to deploy your own templates in a UI exepriance. 
 
 1. In the azure Portal, go to the marketplace blade, and search for "Template Deployment":
-[azure template deployment](../images/template_deployment_portal1.png)
+[azure template deployment](https://portal.azure.com/#blade/Microsoft_Azure_Marketplace/MarketplaceOffersBlade/selectedMenuItemId/home)
 
 2. Paste/write you template in the "Edit Template" section, update the parameters and deploy:
-[edit template](../images/template_deployment_portal2.png)
+[edit template](https://portal.azure.com/#blade/HubsExtension/TemplateEditorBladeV2/template/%7B%0A%20%20%20%20%22%24schema%22%3A%20%22https%3A%2F%2Fschema.management.azure.com%2Fschemas%2F2019-04-01%2FdeploymentTemplate.json%23%22%2C%0A%20%20%20%20%22contentVersion%22%3A%20%221.0.0.0%22%2C%0A%20%20%20%20%22parameters%22%3A%20%7B%7D%2C%0A%20%20%20%20%22resources%22%3A%20%5B%5D%0A%7D)
 
 ## Resorces and References
 https://azure.microsoft.com/en-us/documentation/articles/resource-group-template-deploy/
