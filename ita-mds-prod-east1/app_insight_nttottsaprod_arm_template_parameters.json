@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "components_az_app_insight_ntto_ttsa_prod_name": {
-            "value": "az-app-insight-ntto-ttsa-prod-test"
+            "value": "az-app-insight-ntto-ttsa-prod"
         }
     }
 }

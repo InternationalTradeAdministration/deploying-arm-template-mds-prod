@@ -2,8 +2,8 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "serverfarms_az_asp_ntto_ttsa_prod_name": {
-            "value": "az-asp-ntto-ttsa-prod"
+        "serverfarms_az_asp_bea_api_prod_name": {
+            "value": null
         }
     }
 }

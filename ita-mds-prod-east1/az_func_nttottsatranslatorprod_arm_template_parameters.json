@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "sites_az_func_ntto_ttsa_translator_prod_name": {
-            "value": "az-func-ntto-ttsa-translator-prod-test"
+            "value": "az-func-ntto-ttsa-translator-prod"
         },
         "serverfarms_az_asp_ntto_ttsa_prod_externalid": {
-            "value": "/subscriptions/675d7977-79af-4b94-b0bd-26d4095a4ffb/resourceGroups/ITA-MSDataServices-Dev-East1/providers/Microsoft.Web/serverfarms/az-asp-ntto-ttsa-prod-test"
+            "value": "/subscriptions/<YourSubscriptionId>/resourceGroups/<YourResourceGroupName>/providers/Microsoft.Web/serverfarms/az-asp-ntto-ttsa-prod"
         }
     }
 }

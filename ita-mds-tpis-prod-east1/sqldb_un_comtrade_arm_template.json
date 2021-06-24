@@ -2,8 +2,12 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "servers_ita_mds_prod_east1_name": {
-            "defaultValue": "ita-mds-prod-east1",
+        "servers_ita_mds_tpisserver_prod_east1_name": {
+            "defaultValue": "ita-mds-tpisserver-prod-east1",
+            "type": "String"
+        },
+        "servers_ita_mds_tpisserver_prod_east1_externalid": {
+            "defaultValue": "/subscriptions/f77f3fb8-7095-4b35-aec0-49340169db57/resourceGroups/ITA-MDS-Prod-East1/providers/Microsoft.Sql/servers/ita-mds-tpisserver-prod-east1",
             "type": "String"
         }
     },
@@ -12,29 +16,27 @@
         {
             "type": "Microsoft.Sql/servers/databases",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_ita_mds_prod_east1_name'), '/', parameters('servers_ita_mds_prod_east1_name'), 'DB')]",
+            "name": "[concat(parameters('servers_ita_mds_tpisserver_prod_east1_name'), '/UN_COMTRADE')]",
             "location": "eastus",
             "tags": {
+                "Owner": "EO - Enterprise Operations",
                 "Environment": "Production",
-                "System": "MDS - Data services",
-                "Owner": "EO - Enterprise Operations"
+                "System": "MDS - Data services"
             },
             "sku": {
-                "name": "GP_S_Gen5",
+                "name": "ElasticPool",
                 "tier": "GeneralPurpose",
-                "family": "Gen5",
-                "capacity": 4
+                "capacity": 0
             },
-            "kind": "v12.0,user,vcore,serverless",
+            "kind": "v12.0,user,vcore,pool",
             "properties": {
                 "collation": "SQL_Latin1_General_CP1_CI_AS",
-                "maxSizeBytes": 549755813888,
+                "maxSizeBytes": 375809638400,
+                "elasticPoolId": "[concat(parameters('servers_ita_mds_tpisserver_prod_east1_externalid'), '/elasticPools/TPIS_POOL')]",
                 "catalogCollation": "SQL_Latin1_General_CP1_CI_AS",
                 "zoneRedundant": false,
                 "readScale": "Disabled",
-                "autoPauseDelay": 60,
                 "requestedBackupStorageRedundancy": "Geo",
-                "minCapacity": 2,
                 "maintenanceConfigurationId": "/subscriptions/f77f3fb8-7095-4b35-aec0-49340169db57/providers/Microsoft.Maintenance/publicMaintenanceConfigurations/SQL_EastUS_DB_2",
                 "isLedgerOn": false
             }
@@ -42,9 +44,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/advisors",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_ita_mds_prod_east1_name'), '/', parameters('servers_ita_mds_prod_east1_name'), 'DB/CreateIndex')]",
+            "name": "[concat(parameters('servers_ita_mds_tpisserver_prod_east1_name'), '/UN_COMTRADE/CreateIndex')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_prod_east1_name'), concat(parameters('servers_ita_mds_prod_east1_name'), 'DB'))]"
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_tpisserver_prod_east1_name'), 'UN_COMTRADE')]"
             ],
             "properties": {
                 "autoExecuteValue": "Disabled"
@@ -53,9 +55,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/advisors",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_ita_mds_prod_east1_name'), '/', parameters('servers_ita_mds_prod_east1_name'), 'DB/DbParameterization')]",
+            "name": "[concat(parameters('servers_ita_mds_tpisserver_prod_east1_name'), '/UN_COMTRADE/DbParameterization')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_prod_east1_name'), concat(parameters('servers_ita_mds_prod_east1_name'), 'DB'))]"
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_tpisserver_prod_east1_name'), 'UN_COMTRADE')]"
             ],
             "properties": {
                 "autoExecuteValue": "Disabled"
@@ -64,9 +66,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/advisors",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_ita_mds_prod_east1_name'), '/', parameters('servers_ita_mds_prod_east1_name'), 'DB/DefragmentIndex')]",
+            "name": "[concat(parameters('servers_ita_mds_tpisserver_prod_east1_name'), '/UN_COMTRADE/DefragmentIndex')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_prod_east1_name'), concat(parameters('servers_ita_mds_prod_east1_name'), 'DB'))]"
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_tpisserver_prod_east1_name'), 'UN_COMTRADE')]"
             ],
             "properties": {
                 "autoExecuteValue": "Disabled"
@@ -75,9 +77,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/advisors",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_ita_mds_prod_east1_name'), '/', parameters('servers_ita_mds_prod_east1_name'), 'DB/DropIndex')]",
+            "name": "[concat(parameters('servers_ita_mds_tpisserver_prod_east1_name'), '/UN_COMTRADE/DropIndex')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_prod_east1_name'), concat(parameters('servers_ita_mds_prod_east1_name'), 'DB'))]"
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_tpisserver_prod_east1_name'), 'UN_COMTRADE')]"
             ],
             "properties": {
                 "autoExecuteValue": "Disabled"
@@ -86,9 +88,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/advisors",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_ita_mds_prod_east1_name'), '/', parameters('servers_ita_mds_prod_east1_name'), 'DB/ForceLastGoodPlan')]",
+            "name": "[concat(parameters('servers_ita_mds_tpisserver_prod_east1_name'), '/UN_COMTRADE/ForceLastGoodPlan')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_prod_east1_name'), concat(parameters('servers_ita_mds_prod_east1_name'), 'DB'))]"
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_tpisserver_prod_east1_name'), 'UN_COMTRADE')]"
             ],
             "properties": {
                 "autoExecuteValue": "Enabled"
@@ -97,10 +99,10 @@
         {
             "type": "Microsoft.Sql/servers/databases/auditingPolicies",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_ita_mds_prod_east1_name'), '/', parameters('servers_ita_mds_prod_east1_name'), 'DB/Default')]",
+            "name": "[concat(parameters('servers_ita_mds_tpisserver_prod_east1_name'), '/UN_COMTRADE/Default')]",
             "location": "East US",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_prod_east1_name'), concat(parameters('servers_ita_mds_prod_east1_name'), 'DB'))]"
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_tpisserver_prod_east1_name'), 'UN_COMTRADE')]"
             ],
             "properties": {
                 "auditingState": "Disabled"
@@ -109,12 +111,14 @@
         {
             "type": "Microsoft.Sql/servers/databases/auditingSettings",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_ita_mds_prod_east1_name'), '/', parameters('servers_ita_mds_prod_east1_name'), 'DB/Default')]",
+            "name": "[concat(parameters('servers_ita_mds_tpisserver_prod_east1_name'), '/UN_COMTRADE/Default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_prod_east1_name'), concat(parameters('servers_ita_mds_prod_east1_name'), 'DB'))]"
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_tpisserver_prod_east1_name'), 'UN_COMTRADE')]"
             ],
             "properties": {
                 "retentionDays": 0,
+                "auditActionsAndGroups": [],
+                "isStorageSecondaryKeyInUse": false,
                 "isAzureMonitorTargetEnabled": false,
                 "state": "Disabled",
                 "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000"
@@ -123,12 +127,12 @@
         {
             "type": "Microsoft.Sql/servers/databases/backupLongTermRetentionPolicies",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_ita_mds_prod_east1_name'), '/', parameters('servers_ita_mds_prod_east1_name'), 'DB/default')]",
+            "name": "[concat(parameters('servers_ita_mds_tpisserver_prod_east1_name'), '/UN_COMTRADE/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_prod_east1_name'), concat(parameters('servers_ita_mds_prod_east1_name'), 'DB'))]"
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_tpisserver_prod_east1_name'), 'UN_COMTRADE')]"
             ],
             "properties": {
-                "weeklyRetention": "PT0S",
+                "weeklyRetention": "P35D",
                 "monthlyRetention": "PT0S",
                 "yearlyRetention": "PT0S",
                 "weekOfYear": 0
@@ -137,23 +141,25 @@
         {
             "type": "Microsoft.Sql/servers/databases/backupShortTermRetentionPolicies",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_ita_mds_prod_east1_name'), '/', parameters('servers_ita_mds_prod_east1_name'), 'DB/default')]",
+            "name": "[concat(parameters('servers_ita_mds_tpisserver_prod_east1_name'), '/UN_COMTRADE/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_prod_east1_name'), concat(parameters('servers_ita_mds_prod_east1_name'), 'DB'))]"
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_tpisserver_prod_east1_name'), 'UN_COMTRADE')]"
             ],
             "properties": {
-                "retentionDays": 7
+                "retentionDays": 35
             }
         },
         {
             "type": "Microsoft.Sql/servers/databases/extendedAuditingSettings",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_ita_mds_prod_east1_name'), '/', parameters('servers_ita_mds_prod_east1_name'), 'DB/Default')]",
+            "name": "[concat(parameters('servers_ita_mds_tpisserver_prod_east1_name'), '/UN_COMTRADE/Default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_prod_east1_name'), concat(parameters('servers_ita_mds_prod_east1_name'), 'DB'))]"
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_tpisserver_prod_east1_name'), 'UN_COMTRADE')]"
             ],
             "properties": {
                 "retentionDays": 0,
+                "auditActionsAndGroups": [],
+                "isStorageSecondaryKeyInUse": false,
                 "isAzureMonitorTargetEnabled": false,
                 "state": "Disabled",
                 "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000"
@@ -162,10 +168,10 @@
         {
             "type": "Microsoft.Sql/servers/databases/geoBackupPolicies",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_ita_mds_prod_east1_name'), '/', parameters('servers_ita_mds_prod_east1_name'), 'DB/Default')]",
+            "name": "[concat(parameters('servers_ita_mds_tpisserver_prod_east1_name'), '/UN_COMTRADE/Default')]",
             "location": "East US",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_prod_east1_name'), concat(parameters('servers_ita_mds_prod_east1_name'), 'DB'))]"
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_tpisserver_prod_east1_name'), 'UN_COMTRADE')]"
             ],
             "properties": {
                 "state": "Enabled"
@@ -174,18 +180,18 @@
         {
             "type": "Microsoft.Sql/servers/databases/ledgerDigestUploads",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_ita_mds_prod_east1_name'), '/', parameters('servers_ita_mds_prod_east1_name'), 'DB/Current')]",
+            "name": "[concat(parameters('servers_ita_mds_tpisserver_prod_east1_name'), '/UN_COMTRADE/Current')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_prod_east1_name'), concat(parameters('servers_ita_mds_prod_east1_name'), 'DB'))]"
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_tpisserver_prod_east1_name'), 'UN_COMTRADE')]"
             ],
             "properties": {}
         },
         {
             "type": "Microsoft.Sql/servers/databases/securityAlertPolicies",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_ita_mds_prod_east1_name'), '/', parameters('servers_ita_mds_prod_east1_name'), 'DB/Default')]",
+            "name": "[concat(parameters('servers_ita_mds_tpisserver_prod_east1_name'), '/UN_COMTRADE/Default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_prod_east1_name'), concat(parameters('servers_ita_mds_prod_east1_name'), 'DB'))]"
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_tpisserver_prod_east1_name'), 'UN_COMTRADE')]"
             ],
             "properties": {
                 "state": "Disabled",
@@ -202,10 +208,10 @@
         {
             "type": "Microsoft.Sql/servers/databases/transparentDataEncryption",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_ita_mds_prod_east1_name'), '/', parameters('servers_ita_mds_prod_east1_name'), 'DB/current')]",
+            "name": "[concat(parameters('servers_ita_mds_tpisserver_prod_east1_name'), '/UN_COMTRADE/current')]",
             "location": "East US",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_prod_east1_name'), concat(parameters('servers_ita_mds_prod_east1_name'), 'DB'))]"
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_tpisserver_prod_east1_name'), 'UN_COMTRADE')]"
             ],
             "properties": {
                 "status": "Enabled"
@@ -214,9 +220,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/vulnerabilityAssessments",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_ita_mds_prod_east1_name'), '/', parameters('servers_ita_mds_prod_east1_name'), 'DB/Default')]",
+            "name": "[concat(parameters('servers_ita_mds_tpisserver_prod_east1_name'), '/UN_COMTRADE/Default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_prod_east1_name'), concat(parameters('servers_ita_mds_prod_east1_name'), 'DB'))]"
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ita_mds_tpisserver_prod_east1_name'), 'UN_COMTRADE')]"
             ],
             "properties": {
                 "recurringScans": {
