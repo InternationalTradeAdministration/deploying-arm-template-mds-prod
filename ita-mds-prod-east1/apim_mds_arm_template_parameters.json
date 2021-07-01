@@ -6,10 +6,10 @@
             "value": "eastus"
         },
         "apimName": {
-            "value": "mds-apimanager"
+            "value": "mds-apimanager-test"
         },
         "organizationName": {
-            "value": "ITA-MDS-Paltform"
+            "value": "ITA"
         },
         "adminEmail": {
             "value": "MDS@trade.gov"
