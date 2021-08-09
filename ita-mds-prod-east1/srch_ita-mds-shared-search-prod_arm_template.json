@@ -1,0 +1,46 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "searchServices_ita_mds_shared_search_prod_name": {
+            "defaultValue": "ita-mds-shared-search-prod",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Search/searchServices",
+            "apiVersion": "2021-04-01-preview",
+            "name": "[parameters('searchServices_ita_mds_shared_search_prod_name')]",
+            "location": "East US",
+            "tags": {
+                "Environment": "Production",
+                "System": "MDS - Data services",
+                "Owner": "PD - Production Development"
+            },
+            "sku": {
+                "name": "standard"
+            },
+            "properties": {
+                "replicaCount": 2,
+                "partitionCount": 1,
+                "hostingMode": "Default",
+                "publicNetworkAccess": "Enabled",
+                "networkRuleSet": {
+                    "ipRules": [],
+                    "bypass": "None"
+                },
+                "encryptionWithCmk": {
+                    "enforcement": "Unspecified"
+                },
+                "disableLocalAuth": false,
+                "authOptions": {
+                    "apiKeyOnly": {}
+                },
+                "disabledDataExfiltrationOptions": [],
+                "semanticSearch": "disabled"
+            }
+        }
+    ]
+}
