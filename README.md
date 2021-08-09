@@ -14,11 +14,11 @@ Connect-AzAccount -Subscription <YourSubscriptionId>
 
 #create a new resources group and specify the location
 New-AzResourceGroup `
-  -Name ITA-MDS-Prod-Storage-East1 `
+  -Name ITA-MDSStorage-Prod-East1 `
   -Location "East US"
 
 #set your RG name
-$RGName ="ITA-MDS-Prod-Storage-East1"
+$RGName ="ITA-MDSStorage-Prod-East"
 
 #this will deploy ARM template
 New-AzResourceGroupDeployment `

@@ -4,11 +4,11 @@ Connect-AzAccount -Subscription <subscription>
 
 #create a new resources group if it doesnt exist and specify the location
 New-AzResourceGroup `
-  -Name ITA-MDS-Prod-Storage-East1 `
+  -Name ITA-MDSStorage-Prod-East1 `
   -Location "East US"
 
 #set your RG & storage account name
-$RGName ="ITA-MDS-Prod-Storage-East1"
+$RGName ="ITA-MDSStorage- Prod-East1"
 $StorageAccountName = "mdspublicprod"
 
 
