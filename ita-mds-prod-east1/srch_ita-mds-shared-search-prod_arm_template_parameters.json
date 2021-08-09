@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "searchServices_ita_mds_shared_search_prod_name": {
-            "value": null
+            "value": "ita-mds-shared-search-prod"
         }
     }
 }
