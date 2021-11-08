@@ -1,79 +1,82 @@
-# Deploying Arm Template MDS Prod
-There are several ways to deploy a template.
-We will cover in high level some of the deployment methods in order to get started with deploying templates:
+# Deploying Arm Template MDS Prod 
+Deploying Azure ARM Template deployment using Build and Release in Azure Pipelines
 
-## Deployment Mode
-Deployments can be either Incremental or Complete. In Incremental mode, resources are deployed without deleting existing resources that are not included in the template. In complete mode resources are deployed and existing resources in the resource group not included in the template are deleted. The default mode is Incremental. For more info, visit [Deploy an application with Azure Resource Manager template](https://azure.microsoft.com/en-gb/documentation/articles/resource-group-template-deploy/)
- 
-## Deploy Using Powershell
 
-The following example will deploy a template file using a parameter file. In this example the template and parameters files are hosted localy:
-```powershell
-#connect to your account and specify the subscription to deploy to
-Connect-AzAccount -Subscription <YourSubscriptionId>
+## Overview ##
 
-#create a new resources group and specify the location
-New-AzResourceGroup `
-  -Name ITA-MDSStorage-Prod-East1 `
-  -Location "East US"
+How to configure Azure ARM Template deployment using Build and Release in Azure Pipelines.
 
-#set your RG name
-$RGName ="ITA-MDSStorage-Prod-East"
+## Building MDS infrastructure with ARM Template (Azure DevOps Build) ##
 
-#this will deploy ARM template
-New-AzResourceGroupDeployment `
--Name MyARMDeployment `
--ResourceGroupName $RGName `
--TemplateFile <PathOrLinkToTemplateFile> `
--TemplateParameterFile <PathOrLinkToParameterFile>
-```
 
-Deploy using inline parameters:
-```powershell
-New-AzResourceGroupDeployment -Name MyARMDeployment -ResourceGroupName ITA-MDS-Prod-Storage-East1  -TemplateFile <PathOrLinkToTemplate> -myParameterName "parameterValue"
-```
+### Creating a release pipeline from a template ###
 
-Deploy using a parameters object:
-```powershell
-$parameters = @{"<ParameterName>"="<Parameter Value>"}
-New-AzResourceGroupDeployment -Name MyARMDeployment  -ResourceGroupName ITA-MDS-Prod-Storage-East1 -TemplateFile <PathOrLinkToTemplate> -TemplateParameterObject $parameters
-```
+1. Navigate to your team project on Azure DevOps.
 
-Deploy with template and parameters file URIs:
-```powershell
-New-AzureRmResourceGroupDeployment -Name MyARMDeployment -ResourceGroupName ITA-MDS-Prod-Storage-East1 -TemplateUri <templateuri> -TemplateParameterUri <parametersfileuri>
-```
-## Command Line Interface
-We can also use Azure CLI to deploy azure arm templates. Get started with [Manage Azure resources by using Azure CLI](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-cli) overview.
-The follwoing deploys a local template file using inline parameters:
-```bash
-azure login
-azure config mode arm
+1. Navigate to **Pipelines \| Releases**.
 
-azure group create -n ITA-MDS-Prod-Storage-East1 -l "East US"
+    ![](images/000.png)
 
-azure group deployment create -f <PathToTemplate> -p "{\"ParameterName\":{\"value\":\"ParameterValue\"}}" -g ITA-MDS-Prod-Storage-East1 -n MyARMDeployment
-```
-Deploy using a template URI:
-```bash
-azure group deployment create --template-uri <LinkToTemplate> -p "{\"ParameterName\":{\"value\":\"ParameterValue\"}}" -g ITA-MDS-Prod-Storage-East1 -n MyARMDeployment
- ```
- 
-Deploying using a parameters file:
-```bash
- azure group deployment create -f <PathToTemplate> -e <PathToParameterFile> -g  -n MyARMDeployment
-```
+1. Select **New pipeline** to create a new release pipeline.
 
-## Azure Portal
-The Azure Portal allows you to deploy your own templates in a UI exepriance. 
+    ![](images/001.png)
 
-1. In the azure Portal, go to the marketplace blade, and search for "Template Deployment":
-[azure template deployment](https://portal.azure.com/#blade/Microsoft_Azure_Marketplace/MarketplaceOffersBlade/selectedMenuItemId/home)
+1. Click  **or start with an empty job**.
 
-2. Upload or write your template in the "Edit Template" section under "built your own template in the editor". Update the parameters and deploy:
-[edit template](https://portal.azure.com/#create/Microsoft.Template)
+    ![](images/002.png)
 
-## Resorces and References
-https://azure.microsoft.com/en-us/documentation/articles/resource-group-template-deploy/
+1. It will show you an view with stage information. Ignore that and click on **1 job, 0 task** on left side
 
-https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-portal
+    ![](images/1.png)
+
+1. Click the **+** sign on **Agent Job** bar
+
+    ![](images/004.png)
+
+1. search for **Azure Resource Group Deployment** and click **add**
+
+    ![](images/005.png)
+
+1. Select **Azure Deployment: Create or Update Resource** from left side
+
+    ![](images/006.png)
+
+1. Select Azure Subscription
+
+    ![](images/007.png)
+    
+1. Select Resource Group from dropdown. If you don't have an existing resource group go and create one on azure portal. Come back to this step and click the refresh sign on right.
+
+    ![](images/008.png)
+    
+1. Select Location (Recommended **East US**)
+
+1. Select template Location  **Linked  artifact**
+    
+    ![](images/009.png)
+    
+1. View parameters that you can override by clicking **...*** on the right side. Normally this would work but this time it won't since Github doesn't allow CORS requests. Click **+Add** and enter **mysqlPassword** on name and then what you want on value. Then click **OK**
+
+    ![](images/010.png)
+
+1. Save your definition **Save**.
+
+    ![](images/011.png)
+    
+1. Create new release
+
+    ![](images/012.png)
+    
+1. Keep defaults and click **Create**
+
+   ![](images/013.png)
+   
+1. Open your newly created **Release-1**
+
+   ![](images/014.png)
+   
+1. Wait and enjoy the nice animation
+
+   ![](images/015.png)
+   
+1. Validate from azure portal to confirm if the resource you just deployed is showing up in your resource group
