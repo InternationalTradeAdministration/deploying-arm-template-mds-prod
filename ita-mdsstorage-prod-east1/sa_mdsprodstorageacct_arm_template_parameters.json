@@ -6,10 +6,10 @@
             "value": "eastus"
         },
         "storageAccountName": {
-            "value": "tpisprod"
+            "value": "mdsprodstorageacct"
         },
         "accountType": {
-            "value": "Standard_RAGRS"
+            "value": "Standard_LRS"
         },
         "kind": {
             "value": "StorageV2"
@@ -17,23 +17,11 @@
         "accessTier": {
             "value": "Hot"
         },
-        "minimumTlsVersion": {
-            "value": "TLS1_0"
-        },
         "supportsHttpsTrafficOnly": {
             "value": true
         },
-        "allowBlobPublicAccess": {
-            "value": true
-        },
-        "allowSharedKeyAccess": {
-            "value": true
-        },
-        "networkAclsBypass": {
-            "value": "AzureServices"
-        },
-        "networkAclsDefaultAction": {
-            "value": "Allow"
+        "largeFileSharesState": {
+            "value": "Disabled"
         }
     }
 }

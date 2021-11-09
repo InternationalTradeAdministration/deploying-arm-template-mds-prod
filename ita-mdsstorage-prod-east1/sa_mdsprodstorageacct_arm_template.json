@@ -17,22 +17,10 @@
         "accessTier": {
             "type": "String"
         },
-        "minimumTlsVersion": {
-            "type": "String"
-        },
         "supportsHttpsTrafficOnly": {
             "type": "Bool"
         },
-        "allowBlobPublicAccess": {
-            "type": "Bool"
-        },
-        "allowSharedKeyAccess": {
-            "type": "Bool"
-        },
-        "networkAclsBypass": {
-            "type": "String"
-        },
-        "networkAclsDefaultAction": {
+        "largeFileSharesState": {
             "type": "String"
         }
     },
@@ -45,11 +33,9 @@
             "location": "[parameters('location')]",
             "dependsOn": [],
             "tags": {
-                "Owner": "EO - Enterprise Operations",
-                "System Owner": "IA-TPIS",
-                "Project Name": "TPIS",
-                "Environment": "Prod",
-                "System": "Microsoft Data Services"
+                "Resource group": "MDS",
+                "Owner": "PD - Production Development",
+                "System": "MDS - Data services"
             },
             "sku": {
                 "name": "[parameters('accountType')]"
@@ -57,15 +43,8 @@
             "kind": "[parameters('kind')]",
             "properties": {
                 "accessTier": "[parameters('accessTier')]",
-                "minimumTlsVersion": "[parameters('minimumTlsVersion')]",
                 "supportsHttpsTrafficOnly": "[parameters('supportsHttpsTrafficOnly')]",
-                "allowBlobPublicAccess": "[parameters('allowBlobPublicAccess')]",
-                "allowSharedKeyAccess": "[parameters('allowSharedKeyAccess')]",
-                "networkAcls": {
-                    "bypass": "[parameters('networkAclsBypass')]",
-                    "defaultAction": "[parameters('networkAclsDefaultAction')]",
-                    "ipRules": []
-                }
+                "largeFileSharesState": "[parameters('largeFileSharesState')]"
             }
         }
     ],
